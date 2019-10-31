@@ -1,17 +1,17 @@
 {
-  "name": "react-boilerplate",
+  "name": "fiat",
   "version": "4.0.0",
-  "description": "A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices",
+  "description": "",
   "repository": {
     "type": "git",
-    "url": "git://github.com/react-boilerplate/react-boilerplate.git"
+    "url": ""
   },
   "engines": {
     "npm": ">=5",
     "node": ">=8.15.1"
   },
-  "author": "Max Stoiber",
-  "license": "MIT",
+  "author": "",
+  "license": "",
   "scripts": {
     "analyze:clean": "rimraf stats.json",
     "preanalyze": "npm run analyze:clean",
@@ -71,6 +71,7 @@
     "babel-core": "7.0.0-bridge.0"
   },
   "dependencies": {
+    "@ant-design/icons": "^2.1.1",
     "chalk": "^2.4.2",
     "compression": "1.7.4",
     "connected-react-router": "6.5.0",
