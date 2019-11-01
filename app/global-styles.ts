@@ -6,6 +6,7 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
     width: 100%;
     line-height: 1.5;
+    font-family: 'Bitter', serif;
   }
 
   body {
@@ -13,7 +14,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body.fontLoaded {
-    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Bitter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
   #app {

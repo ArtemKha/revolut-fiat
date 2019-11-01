@@ -8,4 +8,6 @@ export const Container = styled.div`
   bottom: 0;
   display: flex;
   justify-content: space-around;
+  padding: 10px 0;
+  margin-bottom: 30px;
 `;

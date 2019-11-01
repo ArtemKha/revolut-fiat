@@ -20,11 +20,39 @@ import { Helmet } from 'react-helmet';
 // import { makeSelectUsername } from './selectors';
 // import reducer from './reducer';
 // import saga from './saga';
-import { Text, Centered } from './styled';
+import { SyncOutline } from '@ant-design/icons';
+import { Control, SliderContainer, ControlIcon, ControlLabel } from './styled';
+import Slider from 'components/Slider';
 import Background from './Background';
 import Footer from './Footer';
+import CurrencyInfo from './CurrencyInfo';
+import { Icon } from 'components/Icon';
 
 export default function Exchange() {
+  const topSliderSettings = {
+    slidesToShow: 2,
+    initialSlide: 1,
+    dots: false,
+  };
+
+  const values = [
+    {
+      key: 'eur',
+      description: 'Regular fiat money',
+      value: 102.05,
+    },
+    {
+      key: 'gbp',
+      description: 'Regular fiat money',
+      value: 8.15,
+    },
+    {
+      key: 'usd',
+      description: 'Regular fiat money',
+      value: 1023.35,
+    },
+  ];
+
   return (
     <>
       <Helmet>
@@ -32,11 +60,27 @@ export default function Exchange() {
         <meta name="description" content="Exchange rate" />
       </Helmet>
       <Background>
-        <Centered>
-          <Text>Fiat</Text>
-        </Centered>
+        <SliderContainer isTop={true}>
+          <Slider settings={topSliderSettings}>
+            {values.map(item => (
+              <CurrencyInfo key={item.key} currency={item} isTop={true} />
+            ))}
+          </Slider>
+        </SliderContainer>
+        <SliderContainer isTop={false}>
+          <Slider>
+            {values.map(item => (
+              <CurrencyInfo key={item.key} currency={item} />
+            ))}
+          </Slider>
+        </SliderContainer>
         <Footer>
-          <Text>Footer</Text>
+          <Control>
+            <ControlIcon>
+              <Icon icon={SyncOutline} />
+            </ControlIcon>
+            <ControlLabel>Exchange</ControlLabel>
+          </Control>
         </Footer>
       </Background>
     </>

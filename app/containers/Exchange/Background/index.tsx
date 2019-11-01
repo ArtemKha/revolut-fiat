@@ -2,18 +2,18 @@ import React from 'react';
 import { Reset, FullScreen, Centered, Text, Gradient } from './styled';
 
 export default function Background({ children }): React.ComponentProps {
-  const [hue, setHue] = React.useState(240);
+  const [hue, setHue] = React.useState(170);
   const [accelerator, setAccelerator] = React.useState(1);
 
   setTimeout(() => {
-    if (hue > 240) {
+    if (hue > 200) {
       setAccelerator(-1);
     }
-    if (hue < 180) {
+    if (hue < 160) {
       setAccelerator(1);
     }
     setHue(hue + accelerator);
-  }, 2350);
+  }, 250);
 
   return (
     <>

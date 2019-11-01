@@ -11,11 +11,4 @@ interface HomeState {
 /* --- ACTIONS --- */
 type AppActions = ActionType<typeof actions>;
 
-
 /* --- EXPORTS --- */
-
-type RootState = ApplicationRootState;
-type ContainerState = HomeState;
-type ContainerActions = AppActions;
-
-export { RootState, ContainerState, ContainerActions };

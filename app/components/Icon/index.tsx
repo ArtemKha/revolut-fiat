@@ -1,3 +1,4 @@
+import React from 'react';
 import { AccountBookFill } from '@ant-design/icons';
 import { renderIconDefinitionToSVGElement } from '@ant-design/icons/lib/helpers';
 
@@ -31,9 +32,17 @@ interface IconDefinition {
     | AbstractNode;
 }
 
-export const svgHTMLString = (
-  extraSVGAttrs = { width: '1em', height: '1em', fill: 'currentColor' },
-) =>
-  renderIconDefinitionToSVGElement(AccountBookFill, {
-    extraSVGAttrs,
-  });
+export const Icon = ({
+  icon = AccountBookFill,
+  extraSVGAttrs = { width: '3em', height: '3em', fill: '#fff' },
+}) => {
+  return (
+    <div
+      dangerouslySetInnerHTML={{
+        __html: renderIconDefinitionToSVGElement(icon, {
+          extraSVGAttrs,
+        }),
+      }}
+    />
+  );
+};
