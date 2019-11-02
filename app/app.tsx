@@ -34,10 +34,10 @@ import { translationMessages } from 'i18n';
 
 // Observe loading of Bitter (to remove bitter, remove the <link> tag in
 // the index.html file and this observer)
-const openSansObserver = new FontFaceObserver('Bitter', {});
+const fontObserver = new FontFaceObserver('Bitter', {});
 
 // When Bitter is loaded, add a font-family using Bitter to the body
-openSansObserver.load().then(() => {
+fontObserver.load().then(() => {
   document.body.classList.add('fontLoaded');
 });
 

@@ -3,7 +3,7 @@ import { Reset, FullScreen, Gradient } from './styled';
 
 const Background: React.FC = ({ children }) => {
   const [hue, setHue] = React.useState(170);
-  const [accelerator, setAccelerator] = React.useState(1);
+  const [accelerator, setAccelerator] = React.useState(0.5);
 
   setTimeout(() => {
     if (hue > 200 || hue < 160) {
@@ -11,7 +11,7 @@ const Background: React.FC = ({ children }) => {
     }
 
     setHue(hue + accelerator);
-  }, 450);
+  }, 250);
 
   return (
     <>
