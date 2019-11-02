@@ -1,6 +1,8 @@
 import React from 'react';
 import { Container } from './styled';
 
-export default function Footer({ children }): React.FunctionComponentElement {
+const Footer: React.FC = ({ children }) => {
   return <Container>{children}</Container>;
-}
+};
+
+export default Footer;

@@ -11,6 +11,7 @@ import { Helmet } from 'react-helmet';
 import styled from 'styles/styled-components';
 import { Switch, Route } from 'react-router-dom';
 
+import Pockets from 'containers/Pockets';
 import Exchange from 'containers/Exchange';
 import HomePage from 'containers/HomePage/Loadable';
 import FeaturePage from 'containers/FeaturePage/Loadable';
@@ -40,7 +41,8 @@ export default function App() {
       </Helmet>
       {/* <Header /> */}
       <Switch>
-        <Route exact path="/" component={Exchange} />
+        <Route exact path="/" component={Pockets} />
+        <Route exact path="/exchange" component={Exchange} />
         <Route exact path="/home" component={HomePage} />
         <Route path="/features" component={FeaturePage} />
         <Route path="" component={NotFoundPage} />

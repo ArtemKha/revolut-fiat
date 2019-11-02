@@ -1,19 +1,17 @@
 import React from 'react';
-import { Reset, FullScreen, Centered, Text, Gradient } from './styled';
+import { Reset, FullScreen, Gradient } from './styled';
 
-export default function Background({ children }): React.ComponentProps {
+const Background: React.FC = ({ children }) => {
   const [hue, setHue] = React.useState(170);
   const [accelerator, setAccelerator] = React.useState(1);
 
   setTimeout(() => {
-    if (hue > 200) {
-      setAccelerator(-1);
+    if (hue > 200 || hue < 160) {
+      setAccelerator(accelerator * -1);
     }
-    if (hue < 160) {
-      setAccelerator(1);
-    }
+
     setHue(hue + accelerator);
-  }, 250);
+  }, 450);
 
   return (
     <>
@@ -24,4 +22,6 @@ export default function Background({ children }): React.ComponentProps {
       </FullScreen>
     </>
   );
-}
+};
+
+export default Background;
