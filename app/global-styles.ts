@@ -13,6 +13,11 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
+  ::selection {
+    color: #fff;
+    background: lightblue;
+  }
+
   body.fontLoaded {
     font-family: 'Bitter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }

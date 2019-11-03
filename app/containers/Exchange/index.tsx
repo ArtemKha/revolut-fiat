@@ -6,19 +6,13 @@ import { CurrencyExchangeTab, Centered } from './styled';
 import Slider from 'components/Slider';
 import Background from 'components/Background';
 // import Footer from './Footer';
-import CurrencyInput from './CurrencyInput';
+import Input from './CurrencyInput';
 import { Icon } from 'components/Icon';
 import Numpad from './Numpad';
 import messages from './messages';
 import Header from './Header';
 
 function Exchange({ intl }) {
-  const topSliderSettings = {
-    slidesToShow: 2,
-    initialSlide: 1,
-    dots: false,
-  };
-
   const pockets = [
     {
       key: 'eur',
@@ -52,17 +46,17 @@ function Exchange({ intl }) {
       <Background>
         <Centered>
           <Header />
-          <CurrencyExchangeTab>
+          <CurrencyExchangeTab isTop={true}>
             <Slider>
               {pockets.map(item => (
-                <CurrencyInput key={item.key} currency={item} isTop={true} />
+                <Input key={item.key} currency={item} isTop={true} />
               ))}
             </Slider>
           </CurrencyExchangeTab>
-          <CurrencyExchangeTab>
+          <CurrencyExchangeTab isTop={false}>
             <Slider>
               {pockets.map(item => (
-                <CurrencyInput key={item.key} currency={item} isTop={false} />
+                <Input key={item.key} currency={item} isTop={false} />
               ))}
             </Slider>
           </CurrencyExchangeTab>

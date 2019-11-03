@@ -34,21 +34,16 @@ const CurrencyInfo: React.FC<Props> = ({ currency, isTop = false }) => {
   }
 
   return (
-    <Info isTop={false}>
-      {/* Amount: */}
+    <>
       <InputLine>
         <Amount>{key}</Amount>
         <Input
           value={outGoing}
           onChange={onChange}
           type="text"
-          maxLength={12}
-          size={12}
-          // min="0"
-          // step="0.01"
-          // max="999999999.99"
+          maxLength={11}
+          size={11}
         />
-        {/* <Amount>{key}</Amount> */}
       </InputLine>
       <InputLine>
         <Description>
@@ -56,7 +51,7 @@ const CurrencyInfo: React.FC<Props> = ({ currency, isTop = false }) => {
         </Description>
         <Description>{!isTop && <Rate input={0.8972} />}</Description>
       </InputLine>
-    </Info>
+    </>
   );
 };
 

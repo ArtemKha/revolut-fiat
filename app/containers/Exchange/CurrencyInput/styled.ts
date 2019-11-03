@@ -6,21 +6,6 @@ export const InputLine = styled.div`
   justify-content: space-between;
 `;
 
-interface InfoProps {
-  isTop: boolean;
-}
-export const Info = styled.div<InfoProps>`
-  text-align: center;
-  padding-bottom: 10px;
-
-  ${props =>
-    props.isTop &&
-    `
-    opacity: 0.6;
-    transform: scale(0.6);
-  `}
-`;
-
 export const Amount = styled.span`
   display: inline-block;
   font-weight: 700;
