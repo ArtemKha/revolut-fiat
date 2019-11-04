@@ -87,7 +87,23 @@ describe('<Pockets />', () => {
     expect(indexes).toStrictEqual({ main: 2, top: 0 });
   });
 
-  it('should update store outgoing currency on exchange button press', () => {
-    //
+  it('should update store outgoing currency on exchange button press', async () => {
+    // arrange
+    const [_, refs, afterChange] = makeArrangeSet();
+    let component;
+
+    // act
+    act(() => {
+      component = render(
+        <Pockets sliderRefs={refs} afterChange={afterChange} />,
+      );
+      refs[1].current!.slickNext();
+    });
+    await sleep(1000); // wait for interactions
+    fireEvent.click(component.getByText(/exchange/i));
+
+    // assert
+    const { currency } = component.store.getState().global;
+    expect(currency).toBe('gbp');
   });
 });
