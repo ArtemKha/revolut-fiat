@@ -1,5 +1,5 @@
-import React from 'react';
-import Slick from 'react-slick';
+import React, { RefObject } from 'react';
+import Slick, { Settings } from 'react-slick';
 import { SlickConfig } from './types';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -12,13 +12,12 @@ const initial = {
   slidesToShow: 1,
   slidesToScroll: 1,
 };
-
-interface Props {
-  settings?: SlickConfig;
+interface Props extends Settings {
+  refToUse: any;
 }
-const Slider: React.FC<Props> = ({ settings = initial, children }) => {
+const Slider: React.FC<Props> = ({ refToUse, children, ...rest }) => {
   return (
-    <Slick {...initial} {...settings}>
+    <Slick ref={refToUse} {...initial} {...rest}>
       {children}
     </Slick>
   );

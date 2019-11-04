@@ -1,14 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Info,
-  Amount,
-  Fraction,
-  Description,
-  InputLine,
-  Input,
-} from './styled';
-// import { DollarOutline, PoundOutline, EuroOutline } from '@ant-design/icons';
-import { Icon } from 'components/Icon';
+import { Amount, Fraction, Description, InputLine, Input } from './styled';
 import messages from 'containers/Exchange/messages';
 import { FormattedMessage } from 'react-intl';
 import Rate from '../Rate';

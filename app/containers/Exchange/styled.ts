@@ -45,7 +45,7 @@ export const CurrencyExchangeTab = styled.div<CurrencyExchangeTabProps>`
   .slick-initialized {
     margin-top: auto;
     margin-bottom: auto;
-    width: 800px;
+    width: 600px;
     max-width: 100vw;
   }
 
@@ -62,6 +62,7 @@ export const CurrencyExchangeTab = styled.div<CurrencyExchangeTabProps>`
     &:before {
       border-bottom: none;
     }
+  }
 `;
 
 export const Centered = styled.div`
@@ -76,8 +77,8 @@ export const Centered = styled.div`
   justify-content: center;
 
   @media screen and (min-width: 800px) {
-    left: calc(50% - 400px);
-    max-width: 800px;
+    left: calc(50% - 300px);
+    max-width: 600px;
     border-radius: 20px;
   }
 `;

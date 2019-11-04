@@ -13,12 +13,21 @@ exports[`<App /> should render and match the snapshot 1`] = `
       name="description"
     />
   </HelmetWrapper>
-  <Header />
   <Switch>
     <Route
       component={[Function]}
       exact={true}
       path="/"
+    />
+    <Route
+      component={[Function]}
+      exact={true}
+      path="/exchange"
+    />
+    <Route
+      component={[Function]}
+      exact={true}
+      path="/home"
     />
     <Route
       component={[Function]}
@@ -29,7 +38,6 @@ exports[`<App /> should render and match the snapshot 1`] = `
       path=""
     />
   </Switch>
-  <Footer />
   <GlobalStyleComponent />
 </ForwardRef(styled.div)>
 `;
