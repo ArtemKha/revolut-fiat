@@ -28,6 +28,7 @@ export const Fraction = styled.span`
 
 export const Description = styled.span`
   display: block;
+  text-transform: uppercase;
   font-size: 12px;
   opacity: 0.6;
 `;

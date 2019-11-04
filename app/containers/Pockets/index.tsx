@@ -11,43 +11,28 @@ import { Icon } from 'components/Icon';
 import messages from './messages';
 import { SliderMethods } from 'containers/Exchange/types';
 
+const pockets = [
+  {
+    key: 'eur',
+    value: 102.05,
+  },
+  {
+    key: 'gbp',
+    value: 8.15,
+  },
+  {
+    key: 'usd',
+    value: 1023.35,
+  },
+];
+
 function Pockets({ intl, history }) {
-  const [{ index, caller }, setAsset] = useState({ index: 0, caller: '' });
-
-  useEffect(() => {
-    const isCallerTop = caller === 'top';
-    const pairIndexToFind = isCallerTop ? 1 : 0;
-    const pairIndex = isCallerTop ? 0 : 1;
-    const nextIndex = positions.find(pair => index === pair[pairIndexToFind])![
-      pairIndex
-    ];
-    const topIndex = isCallerTop ? index : nextIndex;
-    const mainIndex = isCallerTop ? nextIndex : index;
-    console.log({ index, topIndex, mainIndex, nextIndex, caller });
-
-    mainSlider.current!.slickGoTo(topIndex);
-    topSlider.current!.slickGoTo(mainIndex);
-    // if (isCallerTop) {
-    // } else {
-    // }
-  }, [index, caller]);
+  const [lastCaller, setLastCaller] = useState('');
 
   const [topSlider, mainSlider] = [
     useRef<SliderMethods>(null),
     useRef<SliderMethods>(null),
   ];
-  /*
-  1 2
-  0
-
-  2 0
-  1
-
-  0 1
-  2
-*/
-  const positions = [[0, 2], [1, 0], [2, 1]];
-  // const positions = [[0, 1], [1, 2], [2, 0]];
 
   const topSliderSettings = {
     slidesToShow: 2,
@@ -55,41 +40,41 @@ function Pockets({ intl, history }) {
     dots: false,
   };
 
-  const pockets = [
-    {
-      key: 'eur',
-      description: intl.formatMessage(messages.description),
-      value: 102.05,
-    },
-    {
-      key: 'gbp',
-      description: intl.formatMessage(messages.description),
-      value: 8.15,
-    },
-    {
-      key: 'usd',
-      description: intl.formatMessage(messages.description),
-      value: 1023.35,
-    },
-  ];
-
   function toExchange() {
     history.push('/exchange');
   }
 
-  function afterTopChange(index: number) {
-    // mainSlider.current!.slickGoTo(index - 1);
-    if (!caller || caller !== 'top') {
-      console.log('top', index);
-      setAsset({ index, caller: 'top' });
+  function getSlickMethod([prev, next]) {
+    const isLastBackMove = next === pockets.length - 1 && prev === 0;
+    const isLastNextMove = prev === pockets.length - 1 && next === 0;
+    return (!isLastBackMove && prev < next) || isLastNextMove
+      ? 'slickNext'
+      : 'slickPrev';
+  }
+
+  function updateSlider(indexes, caller) {
+    const method = getSlickMethod(indexes);
+
+    setLastCaller(caller);
+
+    if (caller === 'top') {
+      mainSlider.current![method]();
+    } else {
+      topSlider.current![method]();
+    }
+
+    setLastCaller('');
+  }
+
+  function beforeTopChange(...indexes) {
+    if (!lastCaller || lastCaller !== 'main') {
+      updateSlider(indexes, 'top');
     }
   }
 
-  function afterMainChange(index: number) {
-    // topSlider.current!.slickGoTo(index + 1);
-    if (!caller || caller !== 'main') {
-      console.log('main', index);
-      setAsset({ index, caller: 'main' });
+  function beforeMainChange(...indexes) {
+    if (!lastCaller || lastCaller !== 'top') {
+      updateSlider(indexes, 'main');
     }
   }
 
@@ -106,7 +91,7 @@ function Pockets({ intl, history }) {
         <SliderContainer isTop={true}>
           <Slider
             {...topSliderSettings}
-            afterChange={afterTopChange}
+            beforeChange={beforeTopChange}
             refToUse={topSlider}
           >
             {pockets.map(item => (
@@ -115,7 +100,7 @@ function Pockets({ intl, history }) {
           </Slider>
         </SliderContainer>
         <SliderContainer isTop={false}>
-          <Slider refToUse={mainSlider} afterChange={afterMainChange}>
+          <Slider refToUse={mainSlider} beforeChange={beforeMainChange}>
             {pockets.map(item => (
               <CurrencyInfo key={item.key} currency={item} />
             ))}
