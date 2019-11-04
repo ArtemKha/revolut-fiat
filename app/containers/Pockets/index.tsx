@@ -87,7 +87,7 @@ function Pockets({ intl, history }) {
           content={intl.formatMessage(messages.pockets)}
         />
       </Helmet>
-      <Background>
+      <>
         <SliderContainer isTop={true}>
           <Slider
             {...topSliderSettings}
@@ -116,7 +116,7 @@ function Pockets({ intl, history }) {
             </ControlLabel>
           </Control>
         </Footer>
-      </Background>
+      </>
     </>
   );
 }

@@ -43,7 +43,7 @@ function Exchange({ intl }) {
           content={intl.formatMessage(messages.exchange)}
         />
       </Helmet>
-      <Background>
+      <>
         <Centered>
           <Header />
           <CurrencyExchangeTab isTop={true}>
@@ -62,7 +62,7 @@ function Exchange({ intl }) {
           </CurrencyExchangeTab>
           <Numpad onInput={console.log} />
         </Centered>
-      </Background>
+      </>
     </>
   );
 }
