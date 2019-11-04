@@ -4,12 +4,16 @@ import { Numbers, Cell, Container, Delete } from './styled';
 import { Icon } from 'components/Icon';
 
 interface IAppProps {
-  onInput: () => void;
+  onInput: (v: string) => void;
 }
 const Numpad: React.FC<IAppProps> = ({ onInput }) => {
+  const pushValue = e => {
+    const value = e.target.innerText;
+    onInput(value);
+  };
   return (
     <Container>
-      <Numbers>
+      <Numbers onClick={pushValue}>
         <Cell>1</Cell>
         <Cell>2</Cell>
         <Cell>3</Cell>

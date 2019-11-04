@@ -1,18 +1,41 @@
-import React from 'react';
+import React, { useRef, RefObject } from 'react';
 import { render } from 'utils/test-utils';
-import { cleanup, fireEvent } from '@testing-library/react';
+import {
+  cleanup,
+  fireEvent,
+  waitForDomChange,
+  wait,
+  waitForElement,
+} from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
 
 // import * as appActions from 'containers/App/actions';
 // import configureStore from '../../../configureStore';
 import Pockets from '../index';
+import { SliderMethods } from 'containers/Exchange/types';
+import { setTimeout } from 'timers';
+import { act } from 'react-test-renderer';
 // import { initialState } from '../reducer';
 // import { changeUsername } from '../actions';
 // import history from '../../../utils/history';
 
 // jest.mock('containers/App/actions');
+const sleep = time => new Promise(resolve => setTimeout(resolve, time));
+const makeArrangeSet = () => {
+  const indexes = { main: 0, top: 1 };
+  const refs: Array<RefObject<SliderMethods>> = [
+    React.createRef(), // top
+    React.createRef(), // main
+  ];
+  const afterChange = type => {
+    return index => {
+      indexes[type] = index;
+    };
+  };
 
+  return [indexes, refs, afterChange];
+};
 describe('<Pockets />', () => {
   // let store;
   // const mockedLoadRepos = appActions.loadRepos as jest.Mock;
@@ -34,55 +57,37 @@ describe('<Pockets />', () => {
     } = render(<Pockets />);
     expect(firstChild).toMatchSnapshot();
   });
-  it('should update local currency on top slider move', () => {
-    //
+  it('should update main slider on top slider change', async () => {
+    // arrange
+    const [indexes, refs, afterChange] = makeArrangeSet();
+
+    // act
+    act(() => {
+      render(<Pockets sliderRefs={refs} afterChange={afterChange} />);
+      refs[0].current!.slickNext();
+    });
+    await sleep(1000); // wait for interactions
+
+    // assert
+    expect(indexes).toStrictEqual({ main: 1, top: 2 });
   });
 
-  it('should update local currency on main slider move', () => {
-    //
-  });
+  it('should update top slider on main slider change', async () => {
+    // arrange
+    const [indexes, refs, afterChange] = makeArrangeSet();
 
-  it('current index of sliders should be updated on local currency change', () => {
-    //
+    // act
+    act(() => {
+      render(<Pockets sliderRefs={refs} afterChange={afterChange} />);
+      refs[1].current!.slickPrev();
+    });
+    await sleep(1000); // wait for interactions
+
+    // assert
+    expect(indexes).toStrictEqual({ main: 2, top: 0 });
   });
 
   it('should update store outgoing currency on exchange button press', () => {
     //
   });
-
-  // it('should render and match the snapshot', () => {
-  //   const {
-  //     container: { firstChild },
-  //   } = renderHomePage(store);
-  //   expect(firstChild).toMatchSnapshot();
-  // });
-
-  // it('shouldn`t fetch repos on mount (if username is empty)', () => {
-  //   renderHomePage(store);
-  //   expect(initialState.username).toBe('');
-  //   expect(appActions.loadRepos).not.toHaveBeenCalled();
-  // });
-
-  // it('shouldn`t fetch repos if the form is submitted when the username is empty', () => {
-  //   const { container } = renderHomePage(store);
-
-  //   const form = container.querySelector('form')!;
-  //   fireEvent.submit(form);
-
-  //   expect(appActions.loadRepos).not.toHaveBeenCalled();
-  // });
-
-  // it('should fetch repos if the form is submitted when the username isn`t empty', () => {
-  //   const { container } = renderHomePage(store);
-
-  //   store.dispatch(changeUsername('julienben'));
-
-  //   const input = container.querySelector('input')!;
-  //   fireEvent.change(input, { target: { value: 'julienben' } });
-  //   expect(appActions.loadRepos).not.toHaveBeenCalled();
-
-  //   const form = container.querySelector('form')!;
-  //   fireEvent.submit(form);
-  //   expect(appActions.loadRepos).toHaveBeenCalled();
-  // });
 });

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, MutableRefObject } from 'react';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { TransactionOutline } from '@ant-design/icons';
@@ -10,6 +10,7 @@ import CurrencyInfo from './CurrencyInfo';
 import { Icon } from 'components/Icon';
 import messages from './messages';
 import { SliderMethods } from 'containers/Exchange/types';
+import { RouterProps } from 'react-router';
 
 const pockets = [
   {
@@ -25,24 +26,31 @@ const pockets = [
     value: 1023.35,
   },
 ];
+interface Props extends RouterProps {
+  intl?: any;
 
-function Pockets({ intl, history }) {
+  // these 2 props below for testing only
+  afterChange?: any;
+  sliderRefs?: Array<MutableRefObject<SliderMethods>>;
+}
+const Pockets: React.FC<Props> = ({
+  intl,
+  history,
+  afterChange = type => {
+    return index => {
+      console.log({ type, index });
+    };
+  },
+  sliderRefs = [useRef<SliderMethods>(null), useRef<SliderMethods>(null)],
+}) => {
   const [lastCaller, setLastCaller] = useState('');
-
-  const [topSlider, mainSlider] = [
-    useRef<SliderMethods>(null),
-    useRef<SliderMethods>(null),
-  ];
+  const [topSlider, mainSlider] = sliderRefs;
 
   const topSliderSettings = {
     slidesToShow: 2,
     initialSlide: 1,
     dots: false,
   };
-
-  function toExchange() {
-    history.push('/exchange');
-  }
 
   function getSlickMethod([prev, next]) {
     const isLastBackMove = next === pockets.length - 1 && prev === 0;
@@ -78,6 +86,10 @@ function Pockets({ intl, history }) {
     }
   }
 
+  function toExchange() {
+    history.push('/exchange');
+  }
+
   return (
     <>
       <Helmet>
@@ -90,8 +102,10 @@ function Pockets({ intl, history }) {
       <>
         <SliderContainer isTop={true}>
           <Slider
+            data-testId="topSlider"
             {...topSliderSettings}
             beforeChange={beforeTopChange}
+            afterChange={afterChange('top')}
             refToUse={topSlider}
           >
             {pockets.map(item => (
@@ -100,7 +114,12 @@ function Pockets({ intl, history }) {
           </Slider>
         </SliderContainer>
         <SliderContainer isTop={false}>
-          <Slider refToUse={mainSlider} beforeChange={beforeMainChange}>
+          <Slider
+            data-testId="mainSlider"
+            refToUse={mainSlider}
+            beforeChange={beforeMainChange}
+            afterChange={afterChange('main')}
+          >
             {pockets.map(item => (
               <CurrencyInfo key={item.key} currency={item} />
             ))}
@@ -119,6 +138,6 @@ function Pockets({ intl, history }) {
       </>
     </>
   );
-}
+};
 
 export default injectIntl(Pockets);

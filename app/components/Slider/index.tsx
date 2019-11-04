@@ -1,8 +1,9 @@
-import React, { RefObject } from 'react';
+import React, { RefObject, MutableRefObject } from 'react';
 import Slick, { Settings } from 'react-slick';
 import { SlickConfig } from './types';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { SliderMethods } from 'containers/Exchange/types';
 
 const initial = {
   dots: true,
