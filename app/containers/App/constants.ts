@@ -11,6 +11,12 @@ enum ActionTypes {
   LOAD_REPOS = 'boilerplate/App/LOAD_REPOS',
   LOAD_REPOS_SUCCESS = 'boilerplate/App/LOAD_REPOS_SUCCESS',
   LOAD_REPOS_ERROR = 'boilerplate/App/LOAD_REPOS_ERROR',
+
+  LOAD_RATES = 'App/LOAD_RATES',
+  LOAD_RATES_SUCCESS = 'App/LOAD_RATES_SUCCESS',
+  LOAD_RATES_ERROR = 'App/LOAD_RATES_ERROR',
+
+  SET_CURRENCY = 'App/SET_CURRENCY',
 }
 
 export default ActionTypes;

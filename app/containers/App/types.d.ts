@@ -8,18 +8,17 @@ import { ApplicationRootState } from '../../types';
 interface AppState {
   readonly loading: boolean;
   readonly error?: object | boolean;
-  readonly currentUser: string;
-  readonly userData: UserData;
+  readonly currency: string;
+  readonly pockets: any[];
+  readonly rates: any;
 }
 
 interface UserData {
   readonly repos?: Repo[];
 }
 
-
 /* --- ACTIONS --- */
 type AppActions = ActionType<typeof actions>;
-
 
 /* --- EXPORTS --- */
 

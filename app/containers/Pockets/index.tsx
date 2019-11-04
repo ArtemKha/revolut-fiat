@@ -2,47 +2,48 @@ import React, { useState, useRef, useEffect, MutableRefObject } from 'react';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { TransactionOutline } from '@ant-design/icons';
-import { Control, SliderContainer, ControlIcon, ControlLabel } from './styled';
+import { RouterProps } from 'react-router';
+import {
+  useSelector as useReduxSelector,
+  TypedUseSelectorHook,
+  useDispatch,
+} from 'react-redux';
+
+import { SliderMethods } from 'containers/Exchange/types';
+import { ApplicationRootState } from 'types';
 import Slider from 'components/Slider';
-import Background from 'components/Background';
+import { Icon } from 'components/Icon';
 import Footer from './Footer';
 import CurrencyInfo from './CurrencyInfo';
-import { Icon } from 'components/Icon';
 import messages from './messages';
-import { SliderMethods } from 'containers/Exchange/types';
-import { RouterProps } from 'react-router';
+import { Control, SliderContainer, ControlIcon, ControlLabel } from './styled';
+import { setCurrency } from 'containers/App/actions';
 
-const pockets = [
-  {
-    key: 'eur',
-    value: 102.05,
-  },
-  {
-    key: 'gbp',
-    value: 8.15,
-  },
-  {
-    key: 'usd',
-    value: 1023.35,
-  },
-];
+const useSelector: TypedUseSelectorHook<
+  ApplicationRootState
+> = useReduxSelector;
+
 interface Props extends RouterProps {
   intl?: any;
-
-  // these 2 props below for testing only
   afterChange?: any;
   sliderRefs?: Array<MutableRefObject<SliderMethods>>;
 }
 const Pockets: React.FC<Props> = ({
   intl,
-  history,
+  history = {
+    push: () => {},
+  },
   afterChange = type => {
     return index => {
-      console.log({ type, index });
+      return { type, index };
     };
   },
   sliderRefs = [useRef<SliderMethods>(null), useRef<SliderMethods>(null)],
 }) => {
+  const pockets = useSelector(state => state.global.pockets);
+  const dispatch = useDispatch();
+
+  const [pocket, setPocket] = useState(pockets[0]);
   const [lastCaller, setLastCaller] = useState('');
   const [topSlider, mainSlider] = sliderRefs;
 
@@ -83,10 +84,12 @@ const Pockets: React.FC<Props> = ({
   function beforeMainChange(...indexes) {
     if (!lastCaller || lastCaller !== 'top') {
       updateSlider(indexes, 'main');
+      setPocket(pockets[indexes[1]]);
     }
   }
 
-  function toExchange() {
+  function onExchange() {
+    dispatch(setCurrency(pocket.key));
     history.push('/exchange');
   }
 
@@ -126,7 +129,7 @@ const Pockets: React.FC<Props> = ({
           </Slider>
         </SliderContainer>
         <Footer>
-          <Control onClick={toExchange}>
+          <Control onClick={onExchange}>
             <ControlIcon>
               <Icon icon={TransactionOutline} />
             </ControlIcon>
