@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { TransactionOutline } from '@ant-design/icons';
 import { RouterProps } from 'react-router';
+import { getSlickMethod } from 'utils/helpers';
 import {
   useSelector as useReduxSelector,
   TypedUseSelectorHook,
@@ -53,16 +54,8 @@ const Pockets: React.FC<Props> = ({
     dots: false,
   };
 
-  function getSlickMethod([prev, next]) {
-    const isLastBackMove = next === pockets.length - 1 && prev === 0;
-    const isLastNextMove = prev === pockets.length - 1 && next === 0;
-    return (!isLastBackMove && prev < next) || isLastNextMove
-      ? 'slickNext'
-      : 'slickPrev';
-  }
-
   function updateSlider(indexes, caller) {
-    const method = getSlickMethod(indexes);
+    const method = getSlickMethod(indexes, pockets);
 
     setLastCaller(caller);
 

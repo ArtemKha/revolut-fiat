@@ -18,6 +18,4 @@ export const render = (ui, store = configureStore({}, history)) => ({
   store,
 });
 
-export default {
-  render,
-};
+export const sleep = time => new Promise(resolve => setTimeout(resolve, time));

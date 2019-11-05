@@ -1,27 +1,10 @@
-import React, { useRef, RefObject } from 'react';
-import { render } from 'utils/test-utils';
-import {
-  cleanup,
-  fireEvent,
-  waitForDomChange,
-  wait,
-  waitForElement,
-} from '@testing-library/react';
-import { IntlProvider } from 'react-intl';
-import { Provider } from 'react-redux';
-
-// import * as appActions from 'containers/App/actions';
-// import configureStore from '../../../configureStore';
+import React, { RefObject } from 'react';
+import { render, sleep } from 'utils/test-utils';
+import { cleanup, fireEvent } from '@testing-library/react';
 import Pockets from '../index';
 import { SliderMethods } from 'containers/Exchange/types';
-import { setTimeout } from 'timers';
 import { act } from 'react-test-renderer';
-// import { initialState } from '../reducer';
-// import { changeUsername } from '../actions';
-// import history from '../../../utils/history';
 
-// jest.mock('containers/App/actions');
-const sleep = time => new Promise(resolve => setTimeout(resolve, time));
 const makeArrangeSet = () => {
   const indexes = { main: 0, top: 1 };
   const refs: Array<RefObject<SliderMethods>> = [
@@ -37,18 +20,6 @@ const makeArrangeSet = () => {
   return [indexes, refs, afterChange];
 };
 describe('<Pockets />', () => {
-  // let store;
-  // const mockedLoadRepos = appActions.loadRepos as jest.Mock;
-
-  beforeAll(() => {
-    // loadRepos is mocked so that we can spy on it but also so that it doesn't trigger a network request
-    // mockedLoadRepos.mockImplementation(() => ({ type: '' }));
-  });
-
-  beforeEach(() => {
-    // mockedLoadRepos.mockClear();
-  });
-
   afterEach(cleanup);
 
   it('should render and match the snapshot', () => {

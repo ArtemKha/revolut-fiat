@@ -6,7 +6,8 @@ export const InputLine = styled.div`
   justify-content: space-between;
 `;
 
-export const Amount = styled.span`
+export const Label = styled.label`
+  font-family: inherit;
   display: inline-block;
   font-weight: 700;
   font-size: 32px;

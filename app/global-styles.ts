@@ -15,7 +15,7 @@ const GlobalStyle = createGlobalStyle`
 
   ::selection {
     color: #fff;
-    background: lightblue;
+    background: #fff;
   }
 
   body.fontLoaded {

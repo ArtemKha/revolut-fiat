@@ -2,23 +2,26 @@ import { ContainerState, ContainerActions } from './types';
 import ActionTypes from './constants';
 
 const initRates = {
-  GBPUSD: 1,
-  GBPEUR: 1,
-  USDEUR: 1, // GBPEUR / GBPUSD
+  GBPUSD: 1.5,
+  GBPEUR: 1.3,
+  USDEUR: 0.9, // GBPEUR / GBPUSD
 };
 
 const initPockets = [
   {
     key: 'eur',
     value: 102.05,
+    symbol: '€',
   },
   {
     key: 'gbp',
     value: 8.15,
+    symbol: '£',
   },
   {
     key: 'usd',
     value: 1023.35,
+    symbol: '$',
   },
 ];
 
@@ -26,8 +29,8 @@ const initPockets = [
 export const initialState: ContainerState = {
   loading: false,
   error: false,
-  currency: 'usd',
-  rates: [],
+  currency: 'eur',
+  rates: { ...initRates },
   pockets: [...initPockets],
 };
 
