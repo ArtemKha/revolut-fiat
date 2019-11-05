@@ -28,7 +28,9 @@ const Rate: React.FC<IAppProps> = ({ type, relation, currencies }) => {
   return (
     <Container>
       {currencies[firstIndex].symbol}1 = {currencies[secondIndex].symbol}
-      {regular}.{highFraction}
+      {regular}
+      {highFraction && '.'}
+      {highFraction}
       <Low>{lowFraction}</Low>
     </Container>
   );

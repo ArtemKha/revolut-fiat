@@ -1,12 +1,6 @@
 import { ContainerState, ContainerActions, Pocket } from './types';
 import ActionTypes from './constants';
 
-const initRates = {
-  GBPUSD: 1.5,
-  GBPEUR: 1.3,
-  USDEUR: 0.9, // GBPEUR / GBPUSD
-};
-
 const initPockets: Pocket[] = [
   {
     key: 'eur',
@@ -30,7 +24,7 @@ export const initialState: ContainerState = {
   loading: false,
   error: false,
   currency: 'eur',
-  rates: { ...initRates },
+  rates: {},
   pockets: [...initPockets],
 };
 
@@ -64,6 +58,16 @@ function appReducer(
       return {
         ...state,
         currency: action.payload,
+      };
+    case ActionTypes.SET_POCKETS:
+      return {
+        ...state,
+        pockets: state.pockets.map(pocket => {
+          const [updatedPocket] = action.payload.filter(
+            newPocket => pocket.key === newPocket.key,
+          );
+          return updatedPocket ? updatedPocket : pocket;
+        }),
       };
     default:
       return state;

@@ -28,7 +28,7 @@ export function* getRates() {
     */
 
     const rates = {
-      GBPUSD: 1.11425,
+      USDGBP: 1.11425,
       GBPEUR: 0.863765,
       EURUSD: 0.91212,
     };

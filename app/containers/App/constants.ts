@@ -17,6 +17,8 @@ enum ActionTypes {
   LOAD_RATES_ERROR = 'App/LOAD_RATES_ERROR',
 
   SET_CURRENCY = 'App/SET_CURRENCY',
+
+  SET_POCKETS = 'App/SET_POCKETS',
 }
 
 export default ActionTypes;

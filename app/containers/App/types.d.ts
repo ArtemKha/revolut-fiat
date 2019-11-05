@@ -15,7 +15,7 @@ interface AppState {
   readonly loading: boolean;
   readonly error?: object | boolean;
   readonly currency: string;
-  readonly pockets: any[];
+  readonly pockets: Pocket[];
   readonly rates: any;
 }
 

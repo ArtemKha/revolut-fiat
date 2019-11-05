@@ -11,8 +11,14 @@ import { Pocket } from 'containers/App/types';
 interface IAppProps extends RouteComponentProps {
   relation: number;
   currencies: Pocket[];
+  onExchange: () => void;
 }
-const Header: React.FC<IAppProps> = ({ currencies, relation, history }) => {
+const Header: React.FC<IAppProps> = ({
+  currencies,
+  relation,
+  onExchange,
+  history,
+}) => {
   const toPockets = () => history.push('/');
 
   return (
@@ -23,9 +29,9 @@ const Header: React.FC<IAppProps> = ({ currencies, relation, history }) => {
       <Cell>
         <Rate type="outgoing" relation={relation} currencies={currencies} />
       </Cell>
-      <TabText>
+      <Cell onClick={onExchange}>
         <FormattedMessage {...messages.exchange} />
-      </TabText>
+      </Cell>
     </Container>
   );
 };

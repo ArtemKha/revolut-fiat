@@ -2,6 +2,7 @@ import { action } from 'typesafe-actions';
 
 import ActionTypes from './constants';
 import { Repo } from '../RepoListItem/types';
+import { Pocket } from './types';
 
 export const loadRepos = () => action(ActionTypes.LOAD_REPOS);
 export const reposLoaded = (repos: Repo[], username: string) =>
@@ -17,3 +18,6 @@ export const ratesLoadingError = (error: object) =>
 
 export const setCurrency = (currency: string) =>
   action(ActionTypes.SET_CURRENCY, currency);
+
+export const updatePockets = (pockets: Pocket[]) =>
+  action(ActionTypes.SET_POCKETS, pockets);

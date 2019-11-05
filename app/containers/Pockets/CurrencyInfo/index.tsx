@@ -26,7 +26,10 @@ const CurrencyInfo: React.FC<Props> = ({ currency, isTop = false }) => {
       />
       <Amount>
         {unit}
-        <Fraction>.{fractional}</Fraction>
+        <Fraction>
+          {fractional && '.'}
+          {fractional}
+        </Fraction>
       </Amount>
       {currency.key.toUpperCase()}
       <Description>

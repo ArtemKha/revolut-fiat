@@ -14,8 +14,9 @@ import {
 } from 'react-redux';
 import { ApplicationRootState } from 'types';
 import { SliderMethods } from './types';
-import { setCurrency } from 'containers/App/actions';
+import { setCurrency, updatePockets } from 'containers/App/actions';
 import { isValidValue } from './helpers';
+import { Pocket } from 'containers/App/types';
 
 // (50%) 1. to exchange
 // 2. red flash
@@ -43,6 +44,7 @@ function Exchange({
   },
   sliderRefs = [useRef<SliderMethods>(null), useRef<SliderMethods>(null)],
   inputRef = useRef<HTMLInputElement>(null),
+  history,
 }) {
   const dispatch = useDispatch();
   const [pockets, rates, outgoingCurrencyKey] = useSelector(({ global }) => [
@@ -85,7 +87,10 @@ function Exchange({
     setOutgoingAmount('');
     setIncomingCurrency(newOutgoingPockets[0]);
     incomingSlider.current!.slickGoTo(0);
-  }, [outgoingCurrencyKey]);
+  }, [
+    outgoingCurrencyKey, // on store update
+    pockets, // on exchange
+  ]);
 
   useEffect(() => {
     console.log('isSame', outgoingCurrency.key === incomingCurrency.key);
@@ -94,14 +99,14 @@ function Exchange({
     if (rates[key]) {
       setRelation(rates[key]);
     }
-  }, [outgoingCurrency, incomingCurrency]);
+  }, [outgoingCurrency, incomingCurrency, rates]);
 
   useEffect(() => {
     const newOutgoingAmount = (Number(outgoingAmount) / relation).toFixed(2);
     setIncomingAmount(
       Boolean(Number(newOutgoingAmount)) ? newOutgoingAmount : '',
     );
-  }, [outgoingAmount]);
+  }, [outgoingAmount, relation]);
 
   function beforeOutgoingChange(_, next) {
     dispatch(setCurrency(pockets[next].key));
@@ -123,7 +128,27 @@ function Exchange({
   }
 
   function onExchange() {
-    //
+    if (!parseFloat(outgoingAmount)) {
+      return;
+    }
+
+    const makeFixed = (num: number) => parseFloat(num.toFixed(2));
+
+    const newPockets: Pocket[] = [
+      {
+        ...incomingCurrency,
+        value: makeFixed(incomingCurrency.value + parseFloat(incomingAmount)),
+      },
+      {
+        ...outgoingCurrency,
+        value: makeFixed(
+          parseFloat(outgoingCurrency.value) - parseFloat(outgoingAmount),
+        ),
+      },
+    ];
+    dispatch(updatePockets(newPockets));
+    // history.push('/');
+    setOutgoingAmount('');
   }
 
   return (

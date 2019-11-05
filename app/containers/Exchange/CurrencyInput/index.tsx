@@ -26,7 +26,9 @@ const CurrencyInput: React.FC<Props> = ({
   setValue,
   isTop = false,
 }) => {
-  const [unit, fractional] = currency.value.toString().split('.');
+  const [unit, fraction] = currency.value.toString().split('.');
+  const fractional = fraction ? '.' + fraction : '';
+
   const key = currency.key.toUpperCase();
   const inputRef = useRef<HTMLInputElement>(null);
   const prefix = value ? (isTop ? '-' : '+') : '';
@@ -71,7 +73,7 @@ const CurrencyInput: React.FC<Props> = ({
       </InputLine>
       <InputLine>
         <Description>
-          <FormattedMessage {...messages.have} /> {unit}.{fractional} {key}
+          <FormattedMessage {...messages.have} /> {unit}{fractional} {key}
         </Description>
         <Description>
           {!isTop && (
