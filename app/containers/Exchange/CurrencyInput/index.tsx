@@ -4,10 +4,13 @@ import messages from 'containers/Exchange/messages';
 import { FormattedMessage } from 'react-intl';
 import Rate from '../Rate';
 import { isValidValue, numToString } from '../helpers';
+import { Pocket } from 'containers/App/types';
 
 interface Props {
   id: string;
-  currency: any;
+  relation: number;
+  currencies: Pocket[];
+  currency: Pocket;
   isTop?: boolean;
   setRefToUse: any;
   value: string;
@@ -15,7 +18,9 @@ interface Props {
 }
 const CurrencyInput: React.FC<Props> = ({
   id,
+  relation,
   setRefToUse,
+  currencies,
   currency,
   value,
   setValue,
@@ -27,10 +32,9 @@ const CurrencyInput: React.FC<Props> = ({
   const prefix = value ? (isTop ? '-' : '+') : '';
 
   function onChange(e) {
-    // need to test
-
-    // remove prefix
     const { value } = e.target;
+
+    // remove + and - signs before validate
     const num = value
       .split('')
       .filter(char => !['-', '+'].includes(char))
@@ -69,7 +73,11 @@ const CurrencyInput: React.FC<Props> = ({
         <Description>
           <FormattedMessage {...messages.have} /> {unit}.{fractional} {key}
         </Description>
-        <Description>{!isTop && <Rate input={0.8972} />}</Description>
+        <Description>
+          {!isTop && (
+            <Rate type="incoming" relation={relation} currencies={currencies} />
+          )}
+        </Description>
       </InputLine>
     </>
   );

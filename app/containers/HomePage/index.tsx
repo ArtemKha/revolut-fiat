@@ -12,7 +12,7 @@ import { createStructuredSelector } from 'reselect';
 
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
-import { makeSelectError, makeSelectLoading, makeSelectRepos } from 'containers/App/selectors';
+import { makeSelectError, makeSelectLoading } from 'containers/App/selectors';
 import H2 from 'components/H2';
 import ReposList from 'components/ReposList';
 import AtPrefix from './AtPrefix';
@@ -30,19 +30,19 @@ import saga from './saga';
 const key = 'home';
 
 const stateSelector = createStructuredSelector({
-  repos: makeSelectRepos(),
   username: makeSelectUsername(),
   loading: makeSelectLoading(),
   error: makeSelectError(),
 });
 
 export default function HomePage() {
-  const { repos, username, loading, error } = useSelector(stateSelector);
+  const { username, loading, error } = useSelector(stateSelector);
 
   const dispatch = useDispatch();
 
   // Not gonna declare event types here. No need. any is fine
-  const onChangeUsername = (evt: any) => dispatch(changeUsername(evt.target.value));
+  const onChangeUsername = (evt: any) =>
+    dispatch(changeUsername(evt.target.value));
   const onSubmitForm = (evt?: any) => {
     if (evt !== undefined && evt.preventDefault) {
       evt.preventDefault();
@@ -66,7 +66,7 @@ export default function HomePage() {
   const reposListProps = {
     loading: loading,
     error: error,
-    repos: repos,
+    repos: [],
   };
 
   return (

@@ -5,6 +5,12 @@ import { ApplicationRootState } from '../../types';
 
 /* --- STATE --- */
 
+interface Pocket {
+  key: string;
+  value: number;
+  symbol: string;
+}
+
 interface AppState {
   readonly loading: boolean;
   readonly error?: object | boolean;
@@ -26,4 +32,4 @@ type RootState = ApplicationRootState;
 type ContainerState = AppState;
 type ContainerActions = AppActions;
 
-export { RootState, ContainerState, ContainerActions, UserData };
+export { RootState, ContainerState, ContainerActions, UserData, Pocket };

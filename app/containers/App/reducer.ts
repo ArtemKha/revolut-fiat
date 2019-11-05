@@ -1,4 +1,4 @@
-import { ContainerState, ContainerActions } from './types';
+import { ContainerState, ContainerActions, Pocket } from './types';
 import ActionTypes from './constants';
 
 const initRates = {
@@ -7,7 +7,7 @@ const initRates = {
   USDEUR: 0.9, // GBPEUR / GBPUSD
 };
 
-const initPockets = [
+const initPockets: Pocket[] = [
   {
     key: 'eur',
     value: 102.05,

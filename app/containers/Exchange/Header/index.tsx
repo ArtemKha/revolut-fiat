@@ -6,17 +6,13 @@ import messages from 'containers/Exchange/messages';
 import { FormattedMessage } from 'react-intl';
 import { withRouter, RouteComponentProps } from 'react-router';
 import Rate from 'containers/Exchange/Rate';
+import { Pocket } from 'containers/App/types';
 
-interface IAppProps {
-  currency?: any;
-  // history: {
-  //   push: (p: string) => any;
-  // };
+interface IAppProps extends RouteComponentProps {
+  relation: number;
+  currencies: Pocket[];
 }
-const Header: React.FC<RouteComponentProps<IAppProps>> = ({
-  // currency = {},
-  history,
-}) => {
+const Header: React.FC<IAppProps> = ({ currencies, relation, history }) => {
   const toPockets = () => history.push('/');
 
   return (
@@ -25,7 +21,7 @@ const Header: React.FC<RouteComponentProps<IAppProps>> = ({
         <FormattedMessage {...messages.cancel} />
       </Cell>
       <Cell>
-        <Rate />
+        <Rate type="outgoing" relation={relation} currencies={currencies} />
       </Cell>
       <TabText>
         <FormattedMessage {...messages.exchange} />

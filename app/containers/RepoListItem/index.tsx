@@ -9,7 +9,6 @@ import { useSelector } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { FormattedNumber } from 'react-intl';
 
-import { makeSelectCurrentUser } from 'containers/App/selectors';
 import ListItem from 'components/ListItem';
 import IssueIcon from './IssueIcon';
 import IssueLink from './IssueLink';
@@ -25,17 +24,13 @@ interface OwnProps {
 interface DispatchProps {}
 
 type Props = DispatchProps & OwnProps;
-const stateSelector = createStructuredSelector({
-  currentUser: makeSelectCurrentUser(),
-});
 
 export default function RepoListItem({ item }: Props) {
-  const { currentUser } = useSelector(stateSelector);
   let nameprefix = '';
 
   // If the repository is owned by a different person than we got the data for
   // it's a fork and we should show the name of the owner
-  if (item.owner.login !== currentUser) {
+  if (item.owner.login !== '') {
     nameprefix = `${item.owner.login}/`;
   }
 

@@ -3,6 +3,7 @@ import { ratesLoaded, ratesLoadingError } from 'containers/App/actions';
 import ActionTypes from 'containers/App/constants';
 
 import request from 'utils/request';
+import { getFullRates } from 'utils/helpers';
 
 export function* getRates() {
   // Select username from store
@@ -29,27 +30,12 @@ export function* getRates() {
     const rates = {
       GBPUSD: 1.11425,
       GBPEUR: 0.863765,
-      USDEUR: 0.91212,
+      EURUSD: 0.91212,
     };
 
-    // const sec = {
-    //   USD: {
-    //     USD: 1.11425,
-    //     EUR: 1.21425,
-    //     GBP: 1,
-    //   },
-    //   EUR: {
-    //     USD: 1.11425,
-    //     EUR: 1.21425,
-    //     GBP: 1,
-    //   },
-    //   GBP: {
-    //     USD: 1.11425,
-    //     EUR: 1.21425,
-    //     GBP: 1,
-    //   },
-    // };
-    yield put(ratesLoaded(rates));
+    console.log(getFullRates(rates));
+
+    yield put(ratesLoaded(getFullRates(rates)));
   } catch (err) {
     yield put(ratesLoadingError(err));
   }

@@ -17,9 +17,22 @@ import { SliderMethods } from './types';
 import { setCurrency } from 'containers/App/actions';
 import { isValidValue } from './helpers';
 
+// (50%) 1. to exchange
+// 2. red flash
+// 3. to test
+// (50%) 4. load rates
+
 const useSelector: TypedUseSelectorHook<
   ApplicationRootState
 > = useReduxSelector;
+
+function getOutgoingPockets(pockets, outgoingCurrencyKey) {
+  return pockets.filter(o => o.key !== outgoingCurrencyKey);
+}
+
+function getOutgoingCurrency(pockets, outgoingCurrencyKey) {
+  return pockets.filter(o => o.key === outgoingCurrencyKey)[0];
+}
 
 function Exchange({
   intl,
@@ -38,35 +51,57 @@ function Exchange({
     global.currency,
   ]);
 
+  /*
+    I used these states because i have no direct access on current slide state (no such api)
+    Also no time to refactor properly ¯\_(ツ)_/¯
+  */
+
   const [outgoingSlider, incomingSlider] = sliderRefs;
-  const [outgoingPockets, setOutgoingPockets] = useState(pockets);
+  const [outgoingPockets, setOutgoingPockets] = useState(
+    getOutgoingPockets(pockets, outgoingCurrencyKey),
+  );
 
   const [outgoingAmount, setOutgoingAmount] = useState('');
   const [incomingAmount, setIncomingAmount] = useState('');
+  const [relation, setRelation] = useState(1);
 
-  const [outgoingCurrency, setOutgoingCurrency] = useState(pockets[0]);
+  const [outgoingCurrency, setOutgoingCurrency] = useState(
+    getOutgoingCurrency(pockets, outgoingCurrencyKey),
+  );
   const [incomingCurrency, setIncomingCurrency] = useState(outgoingPockets[0]);
 
   useEffect(() => {
     // set incoming currency state
-    setOutgoingPockets(pockets.filter(o => o.key !== outgoingCurrencyKey));
-    const newOutgoingCurrency = pockets.filter(
-      o => o.key === outgoingCurrencyKey,
+    const newOutgoingPockets = getOutgoingPockets(pockets, outgoingCurrencyKey);
+    const newOutgoingCurrency = getOutgoingCurrency(
+      pockets,
+      outgoingCurrencyKey,
     );
-    setOutgoingCurrency(newOutgoingCurrency[0]);
+
+    setOutgoingPockets(newOutgoingPockets);
+    setOutgoingCurrency(newOutgoingCurrency);
 
     // reset outgoing currency state
     setOutgoingAmount('');
-    setIncomingCurrency(outgoingPockets[0]);
+    setIncomingCurrency(newOutgoingPockets[0]);
     incomingSlider.current!.slickGoTo(0);
   }, [outgoingCurrencyKey]);
 
   useEffect(() => {
-    // use incomingCurrency here to calculate rate
+    console.log('isSame', outgoingCurrency.key === incomingCurrency.key);
+    const key = (outgoingCurrency.key + incomingCurrency.key).toUpperCase();
+    console.log(rates[key], outgoingCurrency.key, incomingCurrency.key);
+    if (rates[key]) {
+      setRelation(rates[key]);
+    }
+  }, [outgoingCurrency, incomingCurrency]);
 
-    const relation = 1;
-    setIncomingAmount((Number(outgoingAmount) * relation).toString());
-  }, [incomingAmount]);
+  useEffect(() => {
+    const newOutgoingAmount = (Number(outgoingAmount) / relation).toFixed(2);
+    setIncomingAmount(
+      Boolean(Number(newOutgoingAmount)) ? newOutgoingAmount : '',
+    );
+  }, [outgoingAmount]);
 
   function beforeOutgoingChange(_, next) {
     dispatch(setCurrency(pockets[next].key));
@@ -74,7 +109,6 @@ function Exchange({
 
   function beforeIncomingChange(_, next) {
     setIncomingCurrency(outgoingPockets[next]);
-    console.log(outgoingPockets[next]);
   }
 
   function onNumpadInput(value) {
@@ -83,11 +117,13 @@ function Exchange({
         ? outgoingAmount.slice(0, -1)
         : outgoingAmount + value;
 
-    console.log(value, newValue);
-
     if (isValidValue(newValue, outgoingCurrency)) {
       setOutgoingAmount(newValue);
     }
+  }
+
+  function onExchange() {
+    //
   }
 
   return (
@@ -101,7 +137,11 @@ function Exchange({
       </Helmet>
       <>
         <Centered>
-          <Header />
+          <Header
+            onExchange={onExchange}
+            relation={relation}
+            currencies={[outgoingCurrency, incomingCurrency]}
+          />
           <CurrencyExchangeTab data-testid="outgoing-slider" isTop={true}>
             <Slider
               refToUse={outgoingSlider}
@@ -116,6 +156,8 @@ function Exchange({
                   setValue={setOutgoingAmount}
                   key={item.key}
                   currency={item}
+                  relation={relation}
+                  currencies={[outgoingCurrency, incomingCurrency]}
                   isTop={true}
                 />
               ))}
@@ -130,11 +172,13 @@ function Exchange({
               {outgoingPockets.map(item => (
                 <Input
                   id="incoming"
-                  value={outgoingAmount}
+                  value={incomingAmount}
                   setValue={() => null}
                   setRefToUse={ref => null}
                   key={item.key}
                   currency={item}
+                  relation={relation}
+                  currencies={[outgoingCurrency, incomingCurrency]}
                   isTop={false}
                 />
               ))}
