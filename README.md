@@ -1,9 +1,6 @@
-<img src="https://user-images.githubusercontent.com/3495307/46663063-ca6df600-cbc5-11e8-8a77-d26ab7857f13.png" alt="react boilerplate typescript banner" align="center" />
+<div align="center"><strong>Exchange app</strong></div>
 
-<br />
-
-<div align="center"><strong>Start your next react project in seconds</strong></div>
-<div align="center">A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices</div>
+[![Watch the demo](https://prnt.sc/pt4zyy)](https://youtu.be/XCW5TxhP8F8)
 
 <br />
 

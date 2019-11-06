@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, MutableRefObject } from 'react';
+import React, { useState, useRef, MutableRefObject } from 'react';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { TransactionOutline } from '@ant-design/icons';
@@ -26,14 +26,12 @@ const useSelector: TypedUseSelectorHook<
 
 interface Props extends RouterProps {
   intl?: any;
-  afterChange?: any;
+  afterChange?: (type: string) => (index: number) => void;
   sliderRefs?: Array<MutableRefObject<SliderMethods>>;
 }
 const Pockets: React.FC<Props> = ({
   intl,
-  history = {
-    push: () => {},
-  },
+  history,
   afterChange = type => {
     return index => {
       return { type, index };
@@ -41,10 +39,14 @@ const Pockets: React.FC<Props> = ({
   },
   sliderRefs = [useRef<SliderMethods>(null), useRef<SliderMethods>(null)],
 }) => {
-  const pockets = useSelector(state => state.global.pockets);
   const dispatch = useDispatch();
 
-  const [pocket, setPocket] = useState(pockets[0]);
+  const [pockets, currency] = useSelector(state => [
+    state.global.pockets,
+    state.global.currency,
+  ]);
+  const [init] = useState(getOutgoingCurrencyIndex());
+
   const [lastCaller, setLastCaller] = useState('');
   const [topSlider, mainSlider] = sliderRefs;
 
@@ -53,6 +55,10 @@ const Pockets: React.FC<Props> = ({
     initialSlide: 1,
     dots: false,
   };
+
+  function getOutgoingCurrencyIndex() {
+    return pockets.findIndex(pocket => pocket.key === currency);
+  }
 
   function updateSlider(indexes, caller) {
     const method = getSlickMethod(indexes, pockets);
@@ -68,21 +74,21 @@ const Pockets: React.FC<Props> = ({
     setLastCaller('');
   }
 
-  function beforeTopChange(...indexes) {
+  function beforeTopChange(prev, next) {
     if (!lastCaller || lastCaller !== 'main') {
-      updateSlider(indexes, 'top');
+      updateSlider([prev, next], 'top');
     }
   }
 
-  function beforeMainChange(...indexes) {
+  function beforeMainChange(prev, next) {
+    dispatch(setCurrency(pockets[next].key));
+
     if (!lastCaller || lastCaller !== 'top') {
-      updateSlider(indexes, 'main');
-      setPocket(pockets[indexes[1]]);
+      updateSlider([prev, next], 'main');
     }
   }
 
   function onExchange() {
-    dispatch(setCurrency(pocket.key));
     history.push('/exchange');
   }
 
@@ -98,7 +104,6 @@ const Pockets: React.FC<Props> = ({
       <>
         <SliderContainer isTop={true}>
           <Slider
-            data-testId="topSlider"
             {...topSliderSettings}
             beforeChange={beforeTopChange}
             afterChange={afterChange('top')}
@@ -111,7 +116,7 @@ const Pockets: React.FC<Props> = ({
         </SliderContainer>
         <SliderContainer isTop={false}>
           <Slider
-            data-testId="mainSlider"
+            initialSlide={init}
             refToUse={mainSlider}
             beforeChange={beforeMainChange}
             afterChange={afterChange('main')}

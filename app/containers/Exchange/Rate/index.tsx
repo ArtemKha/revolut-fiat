@@ -14,6 +14,8 @@ interface IAppProps {
   currencies: Pocket[];
 }
 const Rate: React.FC<IAppProps> = ({ type, relation, currencies }) => {
+  // to do: cover with tests
+
   const relationToUse =
     type === 'incoming' ? relation : (1 / relation).toFixed(2);
 

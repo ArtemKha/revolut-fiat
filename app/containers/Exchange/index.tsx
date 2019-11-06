@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, MutableRefObject } from 'react';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { CurrencyExchangeTab, Centered } from './styled';
@@ -18,89 +18,100 @@ import { setCurrency, updatePockets } from 'containers/App/actions';
 import { isValidValue } from './helpers';
 import { Pocket } from 'containers/App/types';
 
-// (50%) 1. to exchange
 // 2. red flash
 // 3. to test
+// 3.1 refactor Rate
 // (50%) 4. load rates
 
 const useSelector: TypedUseSelectorHook<
   ApplicationRootState
 > = useReduxSelector;
 
-function getOutgoingPockets(pockets, outgoingCurrencyKey) {
-  return pockets.filter(o => o.key !== outgoingCurrencyKey);
-}
+interface Props {
+  intl: any;
+  sliderRefs?: Array<MutableRefObject<SliderMethods>>;
 
-function getOutgoingCurrency(pockets, outgoingCurrencyKey) {
-  return pockets.filter(o => o.key === outgoingCurrencyKey)[0];
+  // these two props below for test only
+  afterChange?: (index: number) => void;
+  inputRef?: MutableRefObject<HTMLInputElement>;
 }
-
-function Exchange({
+const Exchange: React.FC<Props> = ({
   intl,
+  sliderRefs = [useRef<SliderMethods>(null), useRef<SliderMethods>(null)],
   afterChange = type => {
     return index => {
       return { type, index };
     };
   },
-  sliderRefs = [useRef<SliderMethods>(null), useRef<SliderMethods>(null)],
   inputRef = useRef<HTMLInputElement>(null),
-  history,
-}) {
+}) => {
   const dispatch = useDispatch();
   const [pockets, rates, outgoingCurrencyKey] = useSelector(({ global }) => [
     global.pockets,
     global.rates,
     global.currency,
   ]);
+  const [outgoingSlider, incomingSlider] = sliderRefs;
 
   /*
     I used these states because i have no direct access on current slide state (no such api)
     Also no time to refactor properly ¯\_(ツ)_/¯
   */
 
-  const [outgoingSlider, incomingSlider] = sliderRefs;
-  const [outgoingPockets, setOutgoingPockets] = useState(
-    getOutgoingPockets(pockets, outgoingCurrencyKey),
-  );
-
+  const [init] = useState(getOutgoingCurrencyIndex());
+  const [incomingPockets, setIncomingPockets] = useState(getIncomingPockets());
   const [outgoingAmount, setOutgoingAmount] = useState('');
   const [incomingAmount, setIncomingAmount] = useState('');
   const [relation, setRelation] = useState(1);
-
-  const [outgoingCurrency, setOutgoingCurrency] = useState(
-    getOutgoingCurrency(pockets, outgoingCurrencyKey),
+  const [outgoingCurrency, setOutgoingCurrency] = useState<Pocket>(
+    getOutgoingCurrency(),
   );
-  const [incomingCurrency, setIncomingCurrency] = useState(outgoingPockets[0]);
+  const [incomingCurrency, setIncomingCurrency] = useState<Pocket>(
+    incomingPockets[0],
+  );
 
+  /* getters */
+
+  function getIncomingPockets() {
+    return pockets.filter(o => o.key !== outgoingCurrencyKey);
+  }
+
+  function getOutgoingCurrency() {
+    return pockets.find(o => o.key === outgoingCurrencyKey)!;
+  }
+
+  function getOutgoingCurrencyIndex() {
+    return pockets.findIndex(pocket => pocket.key === outgoingCurrencyKey);
+  }
+
+  /* effects */
+
+  // sync amounts and pockets state
   useEffect(() => {
-    // set incoming currency state
-    const newOutgoingPockets = getOutgoingPockets(pockets, outgoingCurrencyKey);
-    const newOutgoingCurrency = getOutgoingCurrency(
-      pockets,
-      outgoingCurrencyKey,
-    );
-
-    setOutgoingPockets(newOutgoingPockets);
-    setOutgoingCurrency(newOutgoingCurrency);
-
     // reset outgoing currency state
+    const newOutgoingCurrencyIndex = getOutgoingCurrencyIndex();
     setOutgoingAmount('');
-    setIncomingCurrency(newOutgoingPockets[0]);
+    setOutgoingCurrency(pockets[newOutgoingCurrencyIndex]);
+
+    // reset incoming currency state
+    const newIncomingPockets = getIncomingPockets();
+    setIncomingPockets(newIncomingPockets);
+    setIncomingCurrency(newIncomingPockets[0]);
     incomingSlider.current!.slickGoTo(0);
   }, [
-    outgoingCurrencyKey, // on store update
-    pockets, // on exchange
+    outgoingCurrencyKey, // on store currency key update
+    pockets, // on currency exchange
   ]);
 
+  // track relation
   useEffect(() => {
-    console.log('isSame', outgoingCurrency.key === incomingCurrency.key);
     const key = (outgoingCurrency.key + incomingCurrency.key).toUpperCase();
-    console.log(rates[key], outgoingCurrency.key, incomingCurrency.key);
     if (rates[key]) {
       setRelation(rates[key]);
     }
   }, [outgoingCurrency, incomingCurrency, rates]);
 
+  // track outgoing amount
   useEffect(() => {
     const newOutgoingAmount = (Number(outgoingAmount) / relation).toFixed(2);
     setIncomingAmount(
@@ -108,12 +119,14 @@ function Exchange({
     );
   }, [outgoingAmount, relation]);
 
+  /* actions */
+
   function beforeOutgoingChange(_, next) {
     dispatch(setCurrency(pockets[next].key));
   }
 
   function beforeIncomingChange(_, next) {
-    setIncomingCurrency(outgoingPockets[next]);
+    setIncomingCurrency(incomingPockets[next]);
   }
 
   function onNumpadInput(value) {
@@ -141,13 +154,10 @@ function Exchange({
       },
       {
         ...outgoingCurrency,
-        value: makeFixed(
-          parseFloat(outgoingCurrency.value) - parseFloat(outgoingAmount),
-        ),
+        value: makeFixed(outgoingCurrency.value - parseFloat(outgoingAmount)),
       },
     ];
     dispatch(updatePockets(newPockets));
-    // history.push('/');
     setOutgoingAmount('');
   }
 
@@ -169,6 +179,7 @@ function Exchange({
           />
           <CurrencyExchangeTab data-testid="outgoing-slider" isTop={true}>
             <Slider
+              initialSlide={init}
               refToUse={outgoingSlider}
               beforeChange={beforeOutgoingChange}
               afterChange={afterChange}
@@ -194,7 +205,7 @@ function Exchange({
               beforeChange={beforeIncomingChange}
               afterChange={afterChange}
             >
-              {outgoingPockets.map(item => (
+              {incomingPockets.map(item => (
                 <Input
                   id="incoming"
                   value={incomingAmount}
@@ -214,6 +225,6 @@ function Exchange({
       </>
     </>
   );
-}
+};
 
 export default injectIntl(Exchange);

@@ -65,9 +65,14 @@ describe('<Pockets />', () => {
 
     // act
     act(() => {
-      component = render(
-        <Pockets sliderRefs={refs} afterChange={afterChange} />,
-      );
+      const props = {
+        sliderRefs: refs,
+        afterChange: afterChange,
+        history: {
+          push: () => {},
+        },
+      };
+      component = render(<Pockets {...props} />);
       refs[1].current!.slickNext();
     });
     await sleep(1000); // wait for interactions

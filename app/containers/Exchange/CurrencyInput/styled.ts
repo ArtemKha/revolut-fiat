@@ -14,10 +14,6 @@ export const Label = styled.label`
   margin-left: 15px;
 `;
 
-export const Fraction = styled.span`
-  font-size: 24px;
-`;
-
 export const Description = styled.span`
   display: block;
   font-size: 12px;

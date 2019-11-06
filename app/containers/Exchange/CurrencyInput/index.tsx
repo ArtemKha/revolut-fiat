@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { Label, Fraction, Description, InputLine, Input } from './styled';
+import React, { useRef } from 'react';
+import { Label, Description, InputLine, Input } from './styled';
 import messages from 'containers/Exchange/messages';
 import { FormattedMessage } from 'react-intl';
 import Rate from '../Rate';
@@ -73,7 +73,8 @@ const CurrencyInput: React.FC<Props> = ({
       </InputLine>
       <InputLine>
         <Description>
-          <FormattedMessage {...messages.have} /> {unit}{fractional} {key}
+          <FormattedMessage {...messages.have} /> {unit}
+          {fractional} {key}
         </Description>
         <Description>
           {!isTop && (

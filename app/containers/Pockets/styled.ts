@@ -24,17 +24,12 @@ export const SliderContainer = styled.div<SliderContainerProps>`
     color: #fff;
     font-size: 12px;
   }
-`;
 
-export const Centered = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  @media screen and (min-width: 700px) {
+    .slick-initialized {
+      max-width: 700px;
+    }
+  }
 `;
 
 export const Text = styled.h1`

@@ -45,6 +45,5 @@ export function* getRates() {
  * Root saga manages watcher lifecycle
  */
 export default function* ratesData() {
-  console.log('ratesData');
   yield takeLatest(ActionTypes.LOAD_RATES, getRates);
 }
