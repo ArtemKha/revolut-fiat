@@ -1,6 +1,6 @@
 <div align="center"><strong>Exchange app</strong></div>
 
-[![Watch the demo](https://prnt.sc/pt4zyy)](https://youtu.be/XCW5TxhP8F8)
+[![Watch the demo](https://s5.gifyu.com/images/ezgif.com-video-to-gifd32e59ad1d7133cc.gif)](https://youtu.be/XCW5TxhP8F8)
 
 <br />
 
