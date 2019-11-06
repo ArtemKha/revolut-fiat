@@ -21,7 +21,7 @@ export const Description = styled.span`
   margin: 0px 15px;
 `;
 
-export const Input = styled.input`
+export const StyledInput = styled.input`
   border: none;
   font-weight: 700;
   background: transparent;

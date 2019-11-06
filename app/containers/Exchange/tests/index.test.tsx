@@ -1,17 +1,10 @@
 import React, { RefObject } from 'react';
 import { render, sleep } from 'utils/test-utils';
-import { cleanup, fireEvent } from '@testing-library/react';
-
-import * as appActions from 'containers/App/actions';
-import configureStore from '../../../configureStore';
+import { cleanup, fireEvent, act } from '@testing-library/react';
 import Exchange from '../index';
-import history from '../../../utils/history';
-import { act } from 'react-test-renderer';
 import { SliderMethods } from '../types';
 
 jest.mock('containers/App/actions');
-
-const renderExchange = () => render(<Exchange />);
 
 const makeArrangeSet = () => {
   const refs: Array<RefObject<SliderMethods>> = [
@@ -26,87 +19,52 @@ const makeArrangeSet = () => {
 };
 
 describe('<Exchange />', () => {
-  // let store;
-  // const mockedLoadRepos = appActions.loadRepos as jest.Mock;
-
-  beforeAll(() => {
-    // // loadRepos is mocked so that we can spy on it but also so that it doesn't trigger a network request
-    // mockedLoadRepos.mockImplementation(() => ({ type: '' }));
-  });
-
-  beforeEach(() => {
-    // store = configureStore({}, history);
-    // mockedLoadRepos.mockClear();
-  });
-
   afterEach(cleanup);
 
   it('should render and match the snapshot', () => {
     const {
       container: { firstChild },
-    } = renderExchange();
+    } = render(<Exchange />);
     expect(firstChild).toMatchSnapshot();
   });
 
-  it('should update input value on numpad button push', () => {
-    //
+  it('should update input value on numpad button push', async () => {
+    // in progress
+
+    // arrange
+    const fE = fireEvent;
+
+    // act
+    const { getByTestId, getByText } = render(<Exchange />);
+
+    // [1, '.', 0, 2, 'del', 3].forEach(val =>
+    //   fireEvent.click(getByTestId(val.toString())),
+    //   );
+    fireEvent.click(getByTestId('1'));
+    // fireEvent.click(getByTestId('outgoing-input'), { target: { value: 1000 } });
+
+    // assert
+    expect((getByTestId('outgoing-input') as HTMLInputElement).value).toBe(
+      '+1.03',
+    );
   });
 
   it('should change incoming currency input on outgoing currency change', async () => {
-    // make label for input
-
     // arrange
-    const [refs, afterChange] = makeArrangeSet();
-    let component;
+    const value = 1;
 
     // act
-    act(() => {
-      component = render(
-        <Exchange sliderRefs={refs} afterChange={afterChange} />,
-      );
-      refs[0].current!.slickNext();
-    });
-    await sleep(1000); // wait for interactions
+    const { getByTestId } = render(<Exchange />);
+    fireEvent.change(getByTestId('outgoing-input'), { target: { value } });
 
     // assert
-    const outgoingSlider = component.getByTestId('outgoing-slider');
-    expect(outgoingSlider).toStrictEqual('?');
-  });
-
-  it('should disable an exchange button on an invalid input value (not enough assets to make a trade)', () => {
-    // make a button instead of plain text
+    expect((getByTestId('incoming-input') as HTMLInputElement).value).toBe(
+      '+1.00',
+    );
   });
 
   it('should update store pockets (and view) on successful exchange', () => {
+    // in progress
     // get by test-id
   });
-
-  // it('shouldn`t fetch repos on mount (if username is empty)', () => {
-  //   renderExchange();
-  //   expect(initialState.username).toBe('');
-  //   expect(appActions.loadRepos).not.toHaveBeenCalled();
-  // });
-
-  // it('shouldn`t fetch repos if the form is submitted when the username is empty', () => {
-  //   const { container } = renderExchange();
-
-  //   const form = container.querySelector('form')!;
-  //   fireEvent.submit(form);
-
-  //   expect(appActions.loadRepos).not.toHaveBeenCalled();
-  // });
-
-  // it('should fetch repos if the form is submitted when the username isn`t empty', () => {
-  //   const { container } = renderExchange();
-
-  //   store.dispatch(changeUsername('julienben'));
-
-  //   const input = container.querySelector('input')!;
-  //   fireEvent.change(input, { target: { value: 'julienben' } });
-  //   expect(appActions.loadRepos).not.toHaveBeenCalled();
-
-  //   const form = container.querySelector('form')!;
-  //   fireEvent.submit(form);
-  //   expect(appActions.loadRepos).toHaveBeenCalled();
-  // });
 });

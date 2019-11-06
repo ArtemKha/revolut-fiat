@@ -24,7 +24,9 @@ export const Numbers = styled.div`
   width: 320px;
 `;
 
-export const Cell = styled.li`
+export const Cell = styled.button`
+  font-family: inherit;
+  color: inherit;
   font-size: 32px;
   float: left;
   list-style: none;

@@ -18,11 +18,6 @@ import { setCurrency, updatePockets } from 'containers/App/actions';
 import { isValidValue, numToString } from './helpers';
 import { Pocket } from 'containers/App/types';
 
-// 2. red flash
-// 3. to test
-// 3.1 refactor Rate
-// (50%) 4. load rates
-
 const useSelector: TypedUseSelectorHook<
   ApplicationRootState
 > = useReduxSelector;
@@ -45,13 +40,14 @@ const Exchange: React.FC<Props> = ({
   },
   inputRef = useRef<HTMLInputElement>(null),
 }) => {
-  const dispatch = useDispatch();
   const [pockets, rates, outgoingCurrencyKey] = useSelector(({ global }) => [
     global.pockets,
     global.rates,
     global.currency,
   ]);
   const [outgoingSlider, incomingSlider] = sliderRefs;
+
+  const dispatch = useDispatch();
 
   /*
     I used these states because i have no direct access on current slide state (no such api)
@@ -138,7 +134,7 @@ const Exchange: React.FC<Props> = ({
       setHasError(true);
       setTimeout(() => {
         setHasError(false);
-      }, 1000);
+      }, 500);
     }
   }
 
@@ -189,6 +185,7 @@ const Exchange: React.FC<Props> = ({
           />
           <CurrencyExchangeTab data-testid="outgoing-slider" isTop={true}>
             <Slider
+              infinite={false}
               initialSlide={init}
               refToUse={outgoingSlider}
               beforeChange={beforeOutgoingChange}
@@ -197,6 +194,7 @@ const Exchange: React.FC<Props> = ({
               {pockets.map(item => (
                 <Input
                   id="outgoing"
+                  isActive={outgoingCurrency.key === item.key}
                   setRefToUse={ref => (inputRef = ref)}
                   value={outgoingAmount}
                   setValue={setOutgoingValueAndValidate}
@@ -204,7 +202,6 @@ const Exchange: React.FC<Props> = ({
                   currency={item}
                   relation={relation}
                   currencies={[outgoingCurrency, incomingCurrency]}
-                  isTop={true}
                   hasError={hasError}
                 />
               ))}
@@ -212,6 +209,7 @@ const Exchange: React.FC<Props> = ({
           </CurrencyExchangeTab>
           <CurrencyExchangeTab isTop={false}>
             <Slider
+              infinite={false}
               refToUse={incomingSlider}
               beforeChange={beforeIncomingChange}
               afterChange={afterChange}
@@ -219,6 +217,7 @@ const Exchange: React.FC<Props> = ({
               {incomingPockets.map(item => (
                 <Input
                   id="incoming"
+                  isActive={incomingCurrency.key === item.key}
                   value={incomingAmount}
                   setValue={() => null}
                   setRefToUse={ref => null}
@@ -226,7 +225,6 @@ const Exchange: React.FC<Props> = ({
                   currency={item}
                   relation={relation}
                   currencies={[outgoingCurrency, incomingCurrency]}
-                  isTop={false}
                   hasError={false}
                 />
               ))}

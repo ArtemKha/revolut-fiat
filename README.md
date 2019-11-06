@@ -3,7 +3,7 @@
 <div align="center">
 
 <a  href="https://youtu.be/XCW5TxhP8F8">
-    <img style="max-width: 200px;" src="https://s5.gifyu.com/images/ezgif.com-video-to-gifd32e59ad1d7133cc.gif" alt="Watch the demo" />
+    <img style="max-height: 300px;" src="https://media.giphy.com/media/h7LgjbqCgtCspTblrf/giphy.gif" alt="Watch the demo" />
   </a>
 <br />
 </div>

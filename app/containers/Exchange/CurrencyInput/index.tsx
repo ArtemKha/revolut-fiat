@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Label, Description, InputLine, Input } from './styled';
+import { Label, Description, InputLine, StyledInput } from './styled';
 import messages from 'containers/Exchange/messages';
 import { FormattedMessage } from 'react-intl';
 import Rate from '../Rate';
@@ -10,7 +10,7 @@ interface Props {
   relation: number;
   currencies: Pocket[];
   currency: Pocket;
-  isTop?: boolean;
+  isActive: boolean;
   hasError: boolean;
   setRefToUse: any;
   value: string;
@@ -24,11 +24,12 @@ const CurrencyInput: React.FC<Props> = ({
   currency,
   value,
   hasError,
+  isActive,
   setValue,
-  isTop = false,
 }) => {
   const [unit, fraction] = currency.value.toString().split('.');
   const fractional = fraction ? '.' + fraction : '';
+  const isTop = id === 'outgoing';
 
   const key = currency.key.toUpperCase();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -50,14 +51,18 @@ const CurrencyInput: React.FC<Props> = ({
     setRefToUse(inputRef);
   }
 
+  const testInputId = isActive ? id + '-input' : id + '-inactive-input';
+  const testLabelId = isActive ? id + '-label' : id + '-inactive-label';
+
   return (
     <>
       <InputLine>
-        <Label htmlFor={id} data-testid={id + '-label'}>
+        <Label htmlFor={id + currency.key} data-testid={testLabelId}>
           {key}
         </Label>
-        <Input
-          id={id}
+        <StyledInput
+          id={id + currency.key}
+          data-testid={testInputId}
           className={hasError ? 'shake' : ''}
           ref={inputRef}
           value={prefix + value}

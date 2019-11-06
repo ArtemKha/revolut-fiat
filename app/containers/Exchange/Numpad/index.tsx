@@ -13,19 +13,13 @@ const Numpad: React.FC<IAppProps> = ({ onInput }) => {
   };
   return (
     <Container>
-      <Numbers onClick={pushValue}>
-        <Cell>1</Cell>
-        <Cell>2</Cell>
-        <Cell>3</Cell>
-        <Cell>4</Cell>
-        <Cell>5</Cell>
-        <Cell>6</Cell>
-        <Cell>7</Cell>
-        <Cell>8</Cell>
-        <Cell>9</Cell>
-        <Cell> .</Cell>
-        <Cell>0</Cell>
-        <Cell>
+      <Numbers onClick={pushValue} data-testid="numpad-input">
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, '.', 0].map(value => (
+          <Cell key={value} data-testid={value}>
+            {value}
+          </Cell>
+        ))}
+        <Cell data-testid="del">
           <Delete>
             <Icon icon={CaretLeftOutline} />
           </Delete>
