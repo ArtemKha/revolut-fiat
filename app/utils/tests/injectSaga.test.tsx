@@ -12,9 +12,8 @@ import configureStore from '../../configureStore';
 import injectSaga, { useInjectSaga } from '../injectSaga';
 import { getInjectors } from '../sagaInjectors';
 
-
 import { createMemoryHistory } from 'history';
-import { InjectedStore } from '../../types';
+import { InjectedStore } from 'types';
 
 const memoryHistory = createMemoryHistory();
 
@@ -28,8 +27,8 @@ function* testSaga() {
 jest.mock('../sagaInjectors');
 describe('injectSaga decorator', () => {
   let store: InjectedStore;
-  let injectors: /*typeof getInjectors*/ any;
-  let ComponentWithSaga;
+  let injectors /*: ReturnType<typeof getInjectors>*/;
+  let ComponentWithSaga /*: ComponentType<unknown>*/;
 
   beforeAll(() => {
     const mockedGetInjectors = (getInjectors as unknown) as jest.Mock<
@@ -91,14 +90,14 @@ describe('injectSaga decorator', () => {
 
   it('should propagate props', () => {
     const props = { testProp: 'test' };
-    const renderedComponent = renderer.create(
-      // tslint:disable-next-line: jsx-wrap-multiline
-      <Provider store={store}>
-        <ComponentWithSaga {...props} />
-      </Provider>,
-    )
+    const renderedComponent = renderer
+      .create(
+        // tslint:disable-next-line: jsx-wrap-multiline
+        <Provider store={store}>
+          <ComponentWithSaga {...props} />
+        </Provider>,
+      )
       .getInstance()!;
-
     const {
       props: { children },
     } = renderedComponent;
@@ -107,7 +106,7 @@ describe('injectSaga decorator', () => {
 });
 
 describe('useInjectSaga hook', () => {
-  let store;
+  let store: InjectedStore;
   let injectors;
   let ComponentWithSaga;
 
@@ -115,7 +114,8 @@ describe('useInjectSaga hook', () => {
     const mockedGetInjectors = (getInjectors as unknown) as jest.Mock<
       typeof getInjectors
     >; // compiler doesn't know that it's mocked. So manually cast it.
-    mockedGetInjectors.mockImplementation(() => injectors);  });
+    mockedGetInjectors.mockImplementation(() => injectors);
+  });
 
   beforeEach(() => {
     store = configureStore({}, memoryHistory);

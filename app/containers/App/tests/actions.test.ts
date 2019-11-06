@@ -2,7 +2,6 @@ import ActionTypes from '../constants';
 
 import { loadRepos, reposLoaded, repoLoadingError } from '../actions';
 import { action } from 'typesafe-actions';
-import { Repo } from '../../RepoListItem/types';
 
 describe('App Actions', () => {
   describe('loadRepos', () => {
@@ -17,12 +16,12 @@ describe('App Actions', () => {
 
   describe('reposLoaded', () => {
     it('should return the correct type and the passed repos', () => {
-      const fixture = [{}] as Repo[];
+      const fixture = [{}] as any[];
       const username = 'test';
-      const expectedResult = action(
-        ActionTypes.LOAD_REPOS_SUCCESS,
-        { repos: fixture, username },
-      );
+      const expectedResult = action(ActionTypes.LOAD_REPOS_SUCCESS, {
+        repos: fixture,
+        username,
+      });
 
       expect(reposLoaded(fixture, username)).toEqual(expectedResult);
     });
@@ -33,10 +32,7 @@ describe('App Actions', () => {
       const fixture = {
         msg: 'Something went wrong!',
       };
-      const expectedResult = action(
-        ActionTypes.LOAD_REPOS_ERROR,
-        fixture,
-      );
+      const expectedResult = action(ActionTypes.LOAD_REPOS_ERROR, fixture);
 
       expect(repoLoadingError(fixture)).toEqual(expectedResult);
     });

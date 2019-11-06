@@ -75,7 +75,10 @@ describe('injectReducer decorator', () => {
         <ComponentWithReducer {...props} />
       </Provider>,
     )
-      .getInstance()!;
+      .getInstance();
+    if (!renderedComponent) {
+      throw new Error();
+    }
 
     const {
       props: { children },
