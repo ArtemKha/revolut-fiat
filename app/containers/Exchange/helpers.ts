@@ -1,4 +1,4 @@
-export function isValidValue(value, pocket) {
+export function isValidValue(value: string, pocket) {
   // definitely needs test, but time is limited ¯\_(ツ)_/¯
 
   const isValidCurrencyAmount = /^-?\d*[.,]?\d{0,2}$/.test(value);

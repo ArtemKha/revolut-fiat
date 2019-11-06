@@ -15,7 +15,7 @@ import {
 import { ApplicationRootState } from 'types';
 import { SliderMethods } from './types';
 import { setCurrency, updatePockets } from 'containers/App/actions';
-import { isValidValue } from './helpers';
+import { isValidValue, numToString } from './helpers';
 import { Pocket } from 'containers/App/types';
 
 // 2. red flash
@@ -59,6 +59,8 @@ const Exchange: React.FC<Props> = ({
   */
 
   const [init] = useState(getOutgoingCurrencyIndex());
+  const [hasError, setHasError] = useState(false);
+
   const [incomingPockets, setIncomingPockets] = useState(getIncomingPockets());
   const [outgoingAmount, setOutgoingAmount] = useState('');
   const [incomingAmount, setIncomingAmount] = useState('');
@@ -129,15 +131,23 @@ const Exchange: React.FC<Props> = ({
     setIncomingCurrency(incomingPockets[next]);
   }
 
+  function setOutgoingValueAndValidate(num: string) {
+    if (isValidValue(num, outgoingCurrency)) {
+      setOutgoingAmount(num);
+    } else {
+      setHasError(true);
+      setTimeout(() => {
+        setHasError(false);
+      }, 1000);
+    }
+  }
+
   function onNumpadInput(value) {
     const newValue =
       value === undefined
         ? outgoingAmount.slice(0, -1)
         : outgoingAmount + value;
-
-    if (isValidValue(newValue, outgoingCurrency)) {
-      setOutgoingAmount(newValue);
-    }
+    setOutgoingValueAndValidate(newValue);
   }
 
   function onExchange() {
@@ -189,12 +199,13 @@ const Exchange: React.FC<Props> = ({
                   id="outgoing"
                   setRefToUse={ref => (inputRef = ref)}
                   value={outgoingAmount}
-                  setValue={setOutgoingAmount}
+                  setValue={setOutgoingValueAndValidate}
                   key={item.key}
                   currency={item}
                   relation={relation}
                   currencies={[outgoingCurrency, incomingCurrency]}
                   isTop={true}
+                  hasError={hasError}
                 />
               ))}
             </Slider>
@@ -216,6 +227,7 @@ const Exchange: React.FC<Props> = ({
                   relation={relation}
                   currencies={[outgoingCurrency, incomingCurrency]}
                   isTop={false}
+                  hasError={false}
                 />
               ))}
             </Slider>
