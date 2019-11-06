@@ -2,37 +2,39 @@
 
 exports[`<Exchange /> should render and match the snapshot 1`] = `
 <div
-  class="sc-bwzfXH dFmtLp"
+  class="sc-bwzfXH hPbkgS"
 >
   <div
-    class="sc-VigVT ervugl"
+    class="sc-gqjmRU jZhfeW"
   >
     <span
-      class="sc-jTzLTM cmSsxF"
+      class="sc-VigVT iewXYj"
     >
       <span>
         Cancel
       </span>
     </span>
     <span
-      class="sc-jTzLTM cmSsxF"
+      class="sc-VigVT iewXYj"
     >
       <div
-        class="sc-gzVnrw gftquo"
+        class="sc-bZQynM iLwGJq"
       >
-        $1 = £
+        €
+        1 = 
+        £
         1
         .
-        21
+        00
         <span
-          class="sc-htoDjs bSNund"
+          class="sc-gzVnrw gfHGev"
         >
-          73
+          000
         </span>
       </div>
     </span>
     <span
-      class="sc-fjdhpX clFYnx"
+      class="sc-VigVT iewXYj"
     >
       <span>
         Exchange
@@ -40,7 +42,7 @@ exports[`<Exchange /> should render and match the snapshot 1`] = `
     </span>
   </div>
   <div
-    class="sc-bdVaJa hEUrkQ"
+    class="sc-bdVaJa BkqGY"
     data-testid="outgoing-slider"
   >
     <div
@@ -55,55 +57,6 @@ exports[`<Exchange /> should render and match the snapshot 1`] = `
           style="opacity: 1; transform: translate3d(0px, 0px, 0px);"
         >
           <div
-            aria-hidden="true"
-            class="slick-slide slick-cloned"
-            data-index="-1"
-            style="width: 0px;"
-            tabindex="-1"
-          >
-            <div>
-              <div
-                class="sc-htpNat hoOIWi"
-              >
-                <label
-                  class="sc-bxivhb gxqJPj"
-                  data-testid="outgoing-label"
-                  for="outgoing"
-                >
-                  USD
-                </label>
-                <input
-                  class="sc-bZQynM kwNiZT"
-                  id="outgoing"
-                  maxlength="11"
-                  size="11"
-                  type="text"
-                  value="0"
-                />
-              </div>
-              <div
-                class="sc-htpNat hoOIWi"
-              >
-                <span
-                  class="sc-EHOje kESwbC"
-                >
-                  <span>
-                    You have
-                  </span>
-                   
-                  1023
-                  .
-                  35
-                   
-                  USD
-                </span>
-                <span
-                  class="sc-EHOje kESwbC"
-                />
-              </div>
-            </div>
-          </div>
-          <div
             aria-hidden="false"
             class="slick-slide slick-active slick-current"
             data-index="0"
@@ -117,37 +70,37 @@ exports[`<Exchange /> should render and match the snapshot 1`] = `
                 <label
                   class="sc-bxivhb gxqJPj"
                   data-testid="outgoing-label"
-                  for="outgoing"
+                  for="outgoingeur"
                 >
                   EUR
                 </label>
                 <input
-                  class="sc-bZQynM kwNiZT"
-                  id="outgoing"
+                  class="sc-EHOje kQJQDh"
+                  data-testid="outgoing-input"
+                  id="outgoingeur"
                   maxlength="11"
                   size="11"
                   type="text"
-                  value="0"
+                  value=""
                 />
               </div>
               <div
                 class="sc-htpNat hoOIWi"
               >
                 <span
-                  class="sc-EHOje kESwbC"
+                  class="sc-ifAKCX eVRLSi"
                 >
                   <span>
                     You have
                   </span>
                    
                   102
-                  .
-                  05
+                  .05
                    
                   EUR
                 </span>
                 <span
-                  class="sc-EHOje kESwbC"
+                  class="sc-ifAKCX eVRLSi"
                 />
               </div>
             </div>
@@ -165,38 +118,38 @@ exports[`<Exchange /> should render and match the snapshot 1`] = `
               >
                 <label
                   class="sc-bxivhb gxqJPj"
-                  data-testid="outgoing-label"
-                  for="outgoing"
+                  data-testid="outgoing-inactive-label"
+                  for="outgoinggbp"
                 >
                   GBP
                 </label>
                 <input
-                  class="sc-bZQynM kwNiZT"
-                  id="outgoing"
+                  class="sc-EHOje kQJQDh"
+                  data-testid="outgoing-inactive-input"
+                  id="outgoinggbp"
                   maxlength="11"
                   size="11"
                   type="text"
-                  value="0"
+                  value=""
                 />
               </div>
               <div
                 class="sc-htpNat hoOIWi"
               >
                 <span
-                  class="sc-EHOje kESwbC"
+                  class="sc-ifAKCX eVRLSi"
                 >
                   <span>
                     You have
                   </span>
                    
                   8
-                  .
-                  15
+                  .15
                    
                   GBP
                 </span>
                 <span
-                  class="sc-EHOje kESwbC"
+                  class="sc-ifAKCX eVRLSi"
                 />
               </div>
             </div>
@@ -214,185 +167,38 @@ exports[`<Exchange /> should render and match the snapshot 1`] = `
               >
                 <label
                   class="sc-bxivhb gxqJPj"
-                  data-testid="outgoing-label"
-                  for="outgoing"
+                  data-testid="outgoing-inactive-label"
+                  for="outgoingusd"
                 >
                   USD
                 </label>
                 <input
-                  class="sc-bZQynM kwNiZT"
-                  id="outgoing"
+                  class="sc-EHOje kQJQDh"
+                  data-testid="outgoing-inactive-input"
+                  id="outgoingusd"
                   maxlength="11"
                   size="11"
                   type="text"
-                  value="0"
+                  value=""
                 />
               </div>
               <div
                 class="sc-htpNat hoOIWi"
               >
                 <span
-                  class="sc-EHOje kESwbC"
+                  class="sc-ifAKCX eVRLSi"
                 >
                   <span>
                     You have
                   </span>
                    
                   1023
-                  .
-                  35
+                  .35
                    
                   USD
                 </span>
                 <span
-                  class="sc-EHOje kESwbC"
-                />
-              </div>
-            </div>
-          </div>
-          <div
-            aria-hidden="true"
-            class="slick-slide slick-cloned"
-            data-index="3"
-            style="width: 0px;"
-            tabindex="-1"
-          >
-            <div>
-              <div
-                class="sc-htpNat hoOIWi"
-              >
-                <label
-                  class="sc-bxivhb gxqJPj"
-                  data-testid="outgoing-label"
-                  for="outgoing"
-                >
-                  EUR
-                </label>
-                <input
-                  class="sc-bZQynM kwNiZT"
-                  id="outgoing"
-                  maxlength="11"
-                  size="11"
-                  type="text"
-                  value="0"
-                />
-              </div>
-              <div
-                class="sc-htpNat hoOIWi"
-              >
-                <span
-                  class="sc-EHOje kESwbC"
-                >
-                  <span>
-                    You have
-                  </span>
-                   
-                  102
-                  .
-                  05
-                   
-                  EUR
-                </span>
-                <span
-                  class="sc-EHOje kESwbC"
-                />
-              </div>
-            </div>
-          </div>
-          <div
-            aria-hidden="true"
-            class="slick-slide slick-cloned"
-            data-index="4"
-            style="width: 0px;"
-            tabindex="-1"
-          >
-            <div>
-              <div
-                class="sc-htpNat hoOIWi"
-              >
-                <label
-                  class="sc-bxivhb gxqJPj"
-                  data-testid="outgoing-label"
-                  for="outgoing"
-                >
-                  GBP
-                </label>
-                <input
-                  class="sc-bZQynM kwNiZT"
-                  id="outgoing"
-                  maxlength="11"
-                  size="11"
-                  type="text"
-                  value="0"
-                />
-              </div>
-              <div
-                class="sc-htpNat hoOIWi"
-              >
-                <span
-                  class="sc-EHOje kESwbC"
-                >
-                  <span>
-                    You have
-                  </span>
-                   
-                  8
-                  .
-                  15
-                   
-                  GBP
-                </span>
-                <span
-                  class="sc-EHOje kESwbC"
-                />
-              </div>
-            </div>
-          </div>
-          <div
-            aria-hidden="true"
-            class="slick-slide slick-cloned"
-            data-index="5"
-            style="width: 0px;"
-            tabindex="-1"
-          >
-            <div>
-              <div
-                class="sc-htpNat hoOIWi"
-              >
-                <label
-                  class="sc-bxivhb gxqJPj"
-                  data-testid="outgoing-label"
-                  for="outgoing"
-                >
-                  USD
-                </label>
-                <input
-                  class="sc-bZQynM kwNiZT"
-                  id="outgoing"
-                  maxlength="11"
-                  size="11"
-                  type="text"
-                  value="0"
-                />
-              </div>
-              <div
-                class="sc-htpNat hoOIWi"
-              >
-                <span
-                  class="sc-EHOje kESwbC"
-                >
-                  <span>
-                    You have
-                  </span>
-                   
-                  1023
-                  .
-                  35
-                   
-                  USD
-                </span>
-                <span
-                  class="sc-EHOje kESwbC"
+                  class="sc-ifAKCX eVRLSi"
                 />
               </div>
             </div>
@@ -428,7 +234,7 @@ exports[`<Exchange /> should render and match the snapshot 1`] = `
     </div>
   </div>
   <div
-    class="sc-bdVaJa cGsizg"
+    class="sc-bdVaJa fxDZgn"
   >
     <div
       class="slick-slider slick-initialized"
@@ -441,70 +247,6 @@ exports[`<Exchange /> should render and match the snapshot 1`] = `
           class="slick-track"
           style="opacity: 1; transform: translate3d(0px, 0px, 0px);"
         >
-          <div
-            aria-hidden="true"
-            class="slick-slide slick-cloned"
-            data-index="-1"
-            style="width: 0px;"
-            tabindex="-1"
-          >
-            <div>
-              <div
-                class="sc-htpNat hoOIWi"
-              >
-                <label
-                  class="sc-bxivhb gxqJPj"
-                  data-testid="incoming-label"
-                  for="incoming"
-                >
-                  USD
-                </label>
-                <input
-                  class="sc-bZQynM kwNiZT"
-                  disabled=""
-                  id="incoming"
-                  maxlength="11"
-                  size="11"
-                  type="text"
-                  value="0"
-                />
-              </div>
-              <div
-                class="sc-htpNat hoOIWi"
-              >
-                <span
-                  class="sc-EHOje kESwbC"
-                >
-                  <span>
-                    You have
-                  </span>
-                   
-                  1023
-                  .
-                  35
-                   
-                  USD
-                </span>
-                <span
-                  class="sc-EHOje kESwbC"
-                >
-                  <div
-                    class="sc-gzVnrw gftquo"
-                  >
-                    $1 = £
-                    0
-                    .
-                    89
-                    <span
-                      class="sc-htoDjs bSNund"
-                    >
-                      72
-                    </span>
-                  </div>
-                </span>
-              </div>
-            </div>
-          </div>
           <div
             aria-hidden="false"
             class="slick-slide slick-active slick-current"
@@ -519,51 +261,51 @@ exports[`<Exchange /> should render and match the snapshot 1`] = `
                 <label
                   class="sc-bxivhb gxqJPj"
                   data-testid="incoming-label"
-                  for="incoming"
+                  for="incominggbp"
                 >
                   GBP
                 </label>
                 <input
-                  class="sc-bZQynM kwNiZT"
+                  class="sc-EHOje kQJQDh"
+                  data-testid="incoming-input"
                   disabled=""
-                  id="incoming"
+                  id="incominggbp"
                   maxlength="11"
                   size="11"
                   type="text"
-                  value="0"
+                  value=""
                 />
               </div>
               <div
                 class="sc-htpNat hoOIWi"
               >
                 <span
-                  class="sc-EHOje kESwbC"
+                  class="sc-ifAKCX eVRLSi"
                 >
                   <span>
                     You have
                   </span>
                    
                   8
-                  .
-                  15
+                  .15
                    
                   GBP
                 </span>
                 <span
-                  class="sc-EHOje kESwbC"
+                  class="sc-ifAKCX eVRLSi"
                 >
                   <div
-                    class="sc-gzVnrw gftquo"
+                    class="sc-bZQynM iLwGJq"
                   >
-                    $1 = £
-                    0
+                    £
+                    1 = 
+                    €
+                    1
                     .
-                    89
+                    1
                     <span
-                      class="sc-htoDjs bSNund"
-                    >
-                      72
-                    </span>
+                      class="sc-gzVnrw gfHGev"
+                    />
                   </div>
                 </span>
               </div>
@@ -582,180 +324,52 @@ exports[`<Exchange /> should render and match the snapshot 1`] = `
               >
                 <label
                   class="sc-bxivhb gxqJPj"
-                  data-testid="incoming-label"
-                  for="incoming"
+                  data-testid="incoming-inactive-label"
+                  for="incomingusd"
                 >
                   USD
                 </label>
                 <input
-                  class="sc-bZQynM kwNiZT"
+                  class="sc-EHOje kQJQDh"
+                  data-testid="incoming-inactive-input"
                   disabled=""
-                  id="incoming"
+                  id="incomingusd"
                   maxlength="11"
                   size="11"
                   type="text"
-                  value="0"
+                  value=""
                 />
               </div>
               <div
                 class="sc-htpNat hoOIWi"
               >
                 <span
-                  class="sc-EHOje kESwbC"
+                  class="sc-ifAKCX eVRLSi"
                 >
                   <span>
                     You have
                   </span>
                    
                   1023
-                  .
-                  35
+                  .35
                    
                   USD
                 </span>
                 <span
-                  class="sc-EHOje kESwbC"
+                  class="sc-ifAKCX eVRLSi"
                 >
                   <div
-                    class="sc-gzVnrw gftquo"
+                    class="sc-bZQynM iLwGJq"
                   >
-                    $1 = £
-                    0
+                    £
+                    1 = 
+                    €
+                    1
                     .
-                    89
+                    1
                     <span
-                      class="sc-htoDjs bSNund"
-                    >
-                      72
-                    </span>
-                  </div>
-                </span>
-              </div>
-            </div>
-          </div>
-          <div
-            aria-hidden="true"
-            class="slick-slide slick-cloned"
-            data-index="2"
-            style="width: 0px;"
-            tabindex="-1"
-          >
-            <div>
-              <div
-                class="sc-htpNat hoOIWi"
-              >
-                <label
-                  class="sc-bxivhb gxqJPj"
-                  data-testid="incoming-label"
-                  for="incoming"
-                >
-                  GBP
-                </label>
-                <input
-                  class="sc-bZQynM kwNiZT"
-                  disabled=""
-                  id="incoming"
-                  maxlength="11"
-                  size="11"
-                  type="text"
-                  value="0"
-                />
-              </div>
-              <div
-                class="sc-htpNat hoOIWi"
-              >
-                <span
-                  class="sc-EHOje kESwbC"
-                >
-                  <span>
-                    You have
-                  </span>
-                   
-                  8
-                  .
-                  15
-                   
-                  GBP
-                </span>
-                <span
-                  class="sc-EHOje kESwbC"
-                >
-                  <div
-                    class="sc-gzVnrw gftquo"
-                  >
-                    $1 = £
-                    0
-                    .
-                    89
-                    <span
-                      class="sc-htoDjs bSNund"
-                    >
-                      72
-                    </span>
-                  </div>
-                </span>
-              </div>
-            </div>
-          </div>
-          <div
-            aria-hidden="true"
-            class="slick-slide slick-cloned"
-            data-index="3"
-            style="width: 0px;"
-            tabindex="-1"
-          >
-            <div>
-              <div
-                class="sc-htpNat hoOIWi"
-              >
-                <label
-                  class="sc-bxivhb gxqJPj"
-                  data-testid="incoming-label"
-                  for="incoming"
-                >
-                  USD
-                </label>
-                <input
-                  class="sc-bZQynM kwNiZT"
-                  disabled=""
-                  id="incoming"
-                  maxlength="11"
-                  size="11"
-                  type="text"
-                  value="0"
-                />
-              </div>
-              <div
-                class="sc-htpNat hoOIWi"
-              >
-                <span
-                  class="sc-EHOje kESwbC"
-                >
-                  <span>
-                    You have
-                  </span>
-                   
-                  1023
-                  .
-                  35
-                   
-                  USD
-                </span>
-                <span
-                  class="sc-EHOje kESwbC"
-                >
-                  <div
-                    class="sc-gzVnrw gftquo"
-                  >
-                    $1 = £
-                    0
-                    .
-                    89
-                    <span
-                      class="sc-htoDjs bSNund"
-                    >
-                      72
-                    </span>
+                      class="sc-gzVnrw gfHGev"
+                    />
                   </div>
                 </span>
               </div>
@@ -785,71 +399,84 @@ exports[`<Exchange /> should render and match the snapshot 1`] = `
     </div>
   </div>
   <div
-    class="sc-dnqmqq cOhvHF"
+    class="sc-htoDjs dyhAgN"
   >
     <div
-      class="sc-gZMcBi bFxGfE"
+      class="sc-iwsKbI cMPfXw"
+      data-testid="numpad-input"
     >
       <li
-        class="sc-gqjmRU eLzNSq"
+        class="sc-gZMcBi fMIUkx"
+        data-testid="1"
       >
         1
       </li>
       <li
-        class="sc-gqjmRU eLzNSq"
+        class="sc-gZMcBi fMIUkx"
+        data-testid="2"
       >
         2
       </li>
       <li
-        class="sc-gqjmRU eLzNSq"
+        class="sc-gZMcBi fMIUkx"
+        data-testid="3"
       >
         3
       </li>
       <li
-        class="sc-gqjmRU eLzNSq"
+        class="sc-gZMcBi fMIUkx"
+        data-testid="4"
       >
         4
       </li>
       <li
-        class="sc-gqjmRU eLzNSq"
+        class="sc-gZMcBi fMIUkx"
+        data-testid="5"
       >
         5
       </li>
       <li
-        class="sc-gqjmRU eLzNSq"
+        class="sc-gZMcBi fMIUkx"
+        data-testid="6"
       >
         6
       </li>
       <li
-        class="sc-gqjmRU eLzNSq"
+        class="sc-gZMcBi fMIUkx"
+        data-testid="7"
       >
         7
       </li>
       <li
-        class="sc-gqjmRU eLzNSq"
+        class="sc-gZMcBi fMIUkx"
+        data-testid="8"
       >
         8
       </li>
       <li
-        class="sc-gqjmRU eLzNSq"
+        class="sc-gZMcBi fMIUkx"
+        data-testid="9"
       >
         9
       </li>
       <li
-        class="sc-gqjmRU eLzNSq"
+        class="sc-gZMcBi fMIUkx"
+        data-testid="."
       >
-         .
+        .
       </li>
       <li
-        class="sc-gqjmRU eLzNSq"
+        class="sc-gZMcBi fMIUkx"
+        data-testid="0"
       >
         0
       </li>
       <li
-        class="sc-gqjmRU eLzNSq"
+        class="sc-gZMcBi fMIUkx"
+        data-testid="del"
       >
         <div
-          class="sc-iwsKbI jnPgxl"
+          class="sc-dnqmqq gMVdJC"
         >
           <div>
             <svg

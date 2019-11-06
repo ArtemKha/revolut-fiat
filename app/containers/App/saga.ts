@@ -8,7 +8,6 @@ import { getFullRates, mapResponseToRates } from 'utils/helpers';
 interface Rates {
   [key: string]: number;
 }
-
 export function* getRates() {
   // I'll reset token in a few days
   const key = '0fac8504b6214c30dc66a257e807e7da';
@@ -21,13 +20,7 @@ export function* getRates() {
     if (response.success) {
       const { base, rates } = response;
 
-      let resultRates: Rates = {
-        USDGBP: 1.11425,
-        GBPEUR: 0.863765,
-        EURUSD: 0.91212,
-      };
-
-      resultRates = mapResponseToRates(base, rates);
+      const resultRates: Rates = mapResponseToRates(base, rates);
       const invertedRates = getFullRates(resultRates);
 
       yield put(ratesLoaded(invertedRates));

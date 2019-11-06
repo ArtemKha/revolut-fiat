@@ -17,7 +17,7 @@ const Rate: React.FC<IAppProps> = ({ type, relation, currencies }) => {
   // to do: cover with tests
 
   const relationToUse =
-    type === 'incoming' ? relation : (1 / relation).toFixed(2);
+    type === 'incoming' ? relation : (1 / relation).toFixed(5);
 
   const [regular, fraction] = splitRate(relationToUse);
   const [highFraction, lowFraction] = fraction

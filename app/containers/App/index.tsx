@@ -23,12 +23,16 @@ export default function App() {
   useInjectReducer({ key: key, reducer: reducer });
   useInjectSaga({ key: key, saga: saga });
 
+  const interval = 60; // instead of 10 sec. (as it is in requirements)
+
   React.useEffect(() => {
     dispatch(loadRates());
 
-    return () => {
-      // cleanup
-    };
+    const updateRate = setInterval(() => {
+      dispatch(loadRates());
+    }, 1000 * interval);
+
+    return () => clearInterval(updateRate);
   });
 
   return (

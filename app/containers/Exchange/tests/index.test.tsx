@@ -18,6 +18,11 @@ const makeArrangeSet = () => {
   return [refs, afterChange];
 };
 
+/*
+  These tests is not completely done yet
+  (as well as others in App folder, need more time to finish)
+*/
+
 describe('<Exchange />', () => {
   afterEach(cleanup);
 
@@ -32,16 +37,11 @@ describe('<Exchange />', () => {
     // in progress
 
     // arrange
-    const fE = fireEvent;
+    const clicks = [1, '.', 0, 2, 'del', 3];
 
     // act
     const { getByTestId, getByText } = render(<Exchange />);
-
-    // [1, '.', 0, 2, 'del', 3].forEach(val =>
-    //   fireEvent.click(getByTestId(val.toString())),
-    //   );
-    fireEvent.click(getByTestId('1'));
-    // fireEvent.click(getByTestId('outgoing-input'), { target: { value: 1000 } });
+    clicks.forEach(val => fireEvent.click(getByTestId(val.toString())));
 
     // assert
     expect((getByTestId('outgoing-input') as HTMLInputElement).value).toBe(
@@ -65,6 +65,22 @@ describe('<Exchange />', () => {
 
   it('should update store pockets (and view) on successful exchange', () => {
     // in progress
-    // get by test-id
+
+    // arrange
+    const value = 1;
+    const currency = 'eur';
+
+    // act
+    const { getByTestId, getByText, store } = render(<Exchange />);
+    fireEvent.change(getByTestId('outgoing-input'), { target: { value } });
+    fireEvent.click(getByText(/exchange/i));
+
+    const {
+      global: { pockets },
+    } = store.getState();
+
+    // assert
+    const amount = pockets.filter(item => item.key === currency)!.key;
+    expect(amount).toBe(101.05);
   });
 });
