@@ -1,5 +1,30 @@
 // it definitely needs test, but time is over ¯\_(ツ)_/¯
 
+export function mapResponseToRates(base, rates) {
+  const resultRates = {};
+
+  for (const key in rates) {
+    if (key) {
+      resultRates[base + key] = rates[key];
+
+      const newBase = key;
+      for (const newKey in rates) {
+        if (newKey) {
+          const newRelation = newBase + newKey;
+          const notDuplicate =
+            !resultRates[newRelation] && !resultRates[newKey + newBase];
+          const notSame = newBase !== newKey;
+          if (notDuplicate && notSame) {
+            resultRates[newRelation] = rates[newKey] / rates[newBase];
+          }
+        }
+      }
+    }
+  }
+
+  return resultRates;
+}
+
 export function getFullRates(rates) {
   const newRates = { ...rates };
 

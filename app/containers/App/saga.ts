@@ -1,41 +1,39 @@
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest, call } from 'redux-saga/effects';
 import { ratesLoaded, ratesLoadingError } from 'containers/App/actions';
 import ActionTypes from 'containers/App/constants';
 
 import request from 'utils/request';
-import { getFullRates } from 'utils/helpers';
+import { getFullRates, mapResponseToRates } from 'utils/helpers';
+
+interface Rates {
+  [key: string]: number;
+}
 
 export function* getRates() {
-  // Select username from store
-  const requestURL = `rate url`;
+  // I'll reset token in a few days
+  const key = '0fac8504b6214c30dc66a257e807e7da';
+  const requestURL = `http://data.fixer.io/api/latest?access_key=${key}&symbols=GBP,USD,EUR`;
 
   try {
     // Call our request helper (see 'utils/request')
-    // const response = yield call(request, requestURL);
-    /*
-    from response
-      {
-        "success": true,
-        "timestamp": 1572891245,
-        "base": "EUR",
-        "date": "2019-11-04",
-        "rates": {
-          "USD": 1.11425,
-          "GBP": 0.863765
-        }
-      }
-    to rates
-    */
+    const response = yield call(request, requestURL);
 
-    const rates = {
-      USDGBP: 1.11425,
-      GBPEUR: 0.863765,
-      EURUSD: 0.91212,
-    };
+    if (response.success) {
+      const { base, rates } = response;
 
-    console.log(getFullRates(rates));
+      let resultRates: Rates = {
+        USDGBP: 1.11425,
+        GBPEUR: 0.863765,
+        EURUSD: 0.91212,
+      };
 
-    yield put(ratesLoaded(getFullRates(rates)));
+      resultRates = mapResponseToRates(base, rates);
+      const invertedRates = getFullRates(resultRates);
+
+      yield put(ratesLoaded(invertedRates));
+    } else {
+      yield put(ratesLoadingError(response.error));
+    }
   } catch (err) {
     yield put(ratesLoadingError(err));
   }
