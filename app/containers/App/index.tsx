@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import { Switch, Route } from 'react-router-dom';
-
 import Pockets from 'containers/Pockets';
 import Exchange from 'containers/Exchange';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
