@@ -8,13 +8,15 @@ import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import messages from './messages';
+import Background from 'components/Background';
+import { Text } from './styled';
 
 export default function NotFound() {
   return (
-    <article>
-      <h1>
+    <Background>
+      <Text>
         <FormattedMessage {...messages.header} />
-      </h1>
-    </article>
+      </Text>
+    </Background>
   );
 }
