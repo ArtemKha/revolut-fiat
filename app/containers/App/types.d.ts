@@ -18,10 +18,6 @@ interface AppState {
   readonly rates: any;
 }
 
-interface UserData {
-  readonly repos?: any[];
-}
-
 /* --- ACTIONS --- */
 type AppActions = ActionType<typeof actions>;
 
@@ -31,4 +27,4 @@ type RootState = ApplicationRootState;
 type ContainerState = AppState;
 type ContainerActions = AppActions;
 
-export { RootState, ContainerState, ContainerActions, UserData, Pocket };
+export { RootState, ContainerState, ContainerActions, Pocket };

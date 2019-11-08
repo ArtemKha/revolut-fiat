@@ -3,12 +3,6 @@ import { action } from 'typesafe-actions';
 import ActionTypes from './constants';
 import { Pocket } from './types';
 
-export const loadRepos = () => action(ActionTypes.LOAD_REPOS);
-export const reposLoaded = (repos: any[], username: string) =>
-  action(ActionTypes.LOAD_REPOS_SUCCESS, { repos: repos, username: username });
-export const repoLoadingError = (error: object) =>
-  action(ActionTypes.LOAD_REPOS_ERROR, error);
-
 export const loadRates = () => action(ActionTypes.LOAD_RATES);
 export const ratesLoaded = (rates: any) =>
   action(ActionTypes.LOAD_RATES_SUCCESS, { rates });
