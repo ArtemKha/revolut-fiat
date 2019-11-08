@@ -111,7 +111,7 @@ const Exchange: React.FC<Props> = ({
 
   // track outgoing amount
   useEffect(() => {
-    const newOutgoingAmount = (Number(outgoingAmount) / relation).toFixed(2);
+    const newOutgoingAmount = (Number(outgoingAmount) * relation).toFixed(2);
     setIncomingAmount(
       Boolean(Number(newOutgoingAmount)) ? newOutgoingAmount : '',
     );

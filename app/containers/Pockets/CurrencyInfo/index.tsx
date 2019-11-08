@@ -1,6 +1,11 @@
 import React from 'react';
 import { Info, Amount, Fraction, Description } from './styled';
-import { DollarOutline, PoundOutline, EuroOutline } from '@ant-design/icons';
+import {
+  DollarOutline,
+  PoundOutline,
+  EuroOutline,
+  Loading3QuartersOutline,
+} from '@ant-design/icons';
 
 import { Icon } from 'components/Icon';
 import { FormattedMessage } from 'react-intl';
@@ -21,7 +26,7 @@ const CurrencyInfo: React.FC<Props> = ({ currency, isTop = false }) => {
   return (
     <Info isTop={isTop}>
       <Icon
-        icon={icons[currency.key] || PoundOutline}
+        icon={icons[currency.key] || Loading3QuartersOutline}
         extraSVGAttrs={{ width: '2em', height: '2em', fill: '#fff' }}
       />
       <Amount>

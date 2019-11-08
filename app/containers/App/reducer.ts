@@ -17,6 +17,11 @@ const initPockets: Pocket[] = [
     value: 1023.35,
     symbol: '$',
   },
+  {
+    key: 'rub',
+    value: 240000.15,
+    symbol: '₽',
+  },
 ];
 
 // The initial state of the App
