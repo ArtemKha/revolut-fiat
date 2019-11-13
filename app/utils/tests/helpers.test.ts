@@ -4,7 +4,7 @@ import {
   getSlickMethod,
 } from 'utils/helpers';
 
-describe('helpers', () => {
+describe('utils/helpers', () => {
   let base;
   let rates;
   let resultRatesArranged;

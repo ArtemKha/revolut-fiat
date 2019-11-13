@@ -1,5 +1,3 @@
-// it definitely needs test, but time is over ¯\_(ツ)_/¯
-
 export function mapResponseToRates(base, rates) {
   const resultRates = {};
 

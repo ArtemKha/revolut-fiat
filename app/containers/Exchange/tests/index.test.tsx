@@ -1,22 +1,9 @@
-import React, { RefObject } from 'react';
-import { render, sleep } from 'utils/test-utils';
-import { cleanup, fireEvent, act } from '@testing-library/react';
+import React from 'react';
+import { render } from 'utils/test-utils';
+import { cleanup, fireEvent } from '@testing-library/react';
 import Exchange from '../index';
-import { SliderMethods } from '../types';
 
 jest.mock('containers/App/actions');
-
-const makeArrangeSet = () => {
-  const refs: Array<RefObject<SliderMethods>> = [
-    React.createRef(), // outgoing
-    React.createRef(), // incoming
-  ];
-  const afterChange = val => {
-    console.log(val);
-  };
-
-  return [refs, afterChange];
-};
 
 /*
   These tests is not completely done yet
