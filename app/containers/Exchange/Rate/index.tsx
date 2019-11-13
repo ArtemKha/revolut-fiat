@@ -1,12 +1,7 @@
 import React from 'react';
 import { Container, Low } from './styled';
 import { Pocket } from 'containers/App/types';
-
-function splitRate(rate) {
-  const str = rate.toString();
-  const hasDot = str.includes('');
-  return hasDot ? str.split('.') : [str];
-}
+import { getDigits } from './helpers';
 
 interface IAppProps {
   type: string;
@@ -14,15 +9,9 @@ interface IAppProps {
   currencies: Pocket[];
 }
 const Rate: React.FC<IAppProps> = ({ type, relation, currencies }) => {
-  // to do: cover with tests
-
   const relationToUse =
     type === 'incoming' ? relation : (1 / relation).toFixed(5);
-
-  const [regular, fraction] = splitRate(relationToUse);
-  const [highFraction, lowFraction] = fraction
-    ? [fraction.slice(0, 2), fraction.slice(2)]
-    : [regular, ''];
+  const [regular, highFraction, lowFraction] = getDigits(relationToUse);
 
   const firstIndex = type === 'incoming' ? 1 : 0;
   const secondIndex = firstIndex === 0 ? 1 : 0;
