@@ -33,8 +33,6 @@ export function getFullRates(rates) {
     const reversed = (1 / rates[key]).toString();
 
     newRates[to + from] = parseFloat(parseFloat(reversed).toFixed(6));
-    newRates[from + from] = 1;
-    newRates[to + to] = 1;
   });
 
   return newRates;

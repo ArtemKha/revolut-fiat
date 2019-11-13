@@ -203,6 +203,55 @@ exports[`<Exchange /> should render and match the snapshot 1`] = `
               </div>
             </div>
           </div>
+          <div
+            aria-hidden="true"
+            class="slick-slide"
+            data-index="3"
+            style="outline: none; width: 0px;"
+            tabindex="-1"
+          >
+            <div>
+              <div
+                class="sc-htpNat hoOIWi"
+              >
+                <label
+                  class="sc-bxivhb gxqJPj"
+                  data-testid="outgoing-inactive-label"
+                  for="outgoingrub"
+                >
+                  RUB
+                </label>
+                <input
+                  class="sc-EHOje kQJQDh"
+                  data-testid="outgoing-inactive-input"
+                  id="outgoingrub"
+                  maxlength="11"
+                  size="11"
+                  type="text"
+                  value=""
+                />
+              </div>
+              <div
+                class="sc-htpNat hoOIWi"
+              >
+                <span
+                  class="sc-ifAKCX eVRLSi"
+                >
+                  <span>
+                    You have
+                  </span>
+                   
+                  240000
+                  .15
+                   
+                  RUB
+                </span>
+                <span
+                  class="sc-ifAKCX eVRLSi"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <ul
@@ -228,6 +277,13 @@ exports[`<Exchange /> should render and match the snapshot 1`] = `
         >
           <button>
             3
+          </button>
+        </li>
+        <li
+          class=""
+        >
+          <button>
+            4
           </button>
         </li>
       </ul>
@@ -375,6 +431,70 @@ exports[`<Exchange /> should render and match the snapshot 1`] = `
               </div>
             </div>
           </div>
+          <div
+            aria-hidden="true"
+            class="slick-slide"
+            data-index="2"
+            style="outline: none; width: 0px;"
+            tabindex="-1"
+          >
+            <div>
+              <div
+                class="sc-htpNat hoOIWi"
+              >
+                <label
+                  class="sc-bxivhb gxqJPj"
+                  data-testid="incoming-inactive-label"
+                  for="incomingrub"
+                >
+                  RUB
+                </label>
+                <input
+                  class="sc-EHOje kQJQDh"
+                  data-testid="incoming-inactive-input"
+                  disabled=""
+                  id="incomingrub"
+                  maxlength="11"
+                  size="11"
+                  type="text"
+                  value=""
+                />
+              </div>
+              <div
+                class="sc-htpNat hoOIWi"
+              >
+                <span
+                  class="sc-ifAKCX eVRLSi"
+                >
+                  <span>
+                    You have
+                  </span>
+                   
+                  240000
+                  .15
+                   
+                  RUB
+                </span>
+                <span
+                  class="sc-ifAKCX eVRLSi"
+                >
+                  <div
+                    class="sc-bZQynM iLwGJq"
+                  >
+                    £
+                    1 = 
+                    €
+                    1
+                    .
+                    1
+                    <span
+                      class="sc-gzVnrw gfHGev"
+                    />
+                  </div>
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <ul
@@ -393,6 +513,13 @@ exports[`<Exchange /> should render and match the snapshot 1`] = `
         >
           <button>
             2
+          </button>
+        </li>
+        <li
+          class=""
+        >
+          <button>
+            3
           </button>
         </li>
       </ul>

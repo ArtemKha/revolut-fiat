@@ -11,7 +11,7 @@ interface Rates {
 export function* getRates() {
   // I'll reset token in a few days
   const key = '0fac8504b6214c30dc66a257e807e7da';
-  const requestURL = `http://data.fixer.io/api/latest?access_key=${key}&symbols=GBP,USD,EUR,RUB`;
+  const requestURL = `http://data.fixer.io/api/latest?access_key=${key}&symbols=GBP,USD,RUB`;
 
   try {
     // Call our request helper (see 'utils/request')
